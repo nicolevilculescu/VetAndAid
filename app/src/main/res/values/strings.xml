@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">Vet and Aid</string>
+    <string name="app_logo">App logo</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="title_activity_log_in">LogInActivity</string>
+    <string name="tab_text_1">Client</string>
+    <string name="tab_text_2">Vet</string>
+    <string name="tab_text_3">Other</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="button_for_next_page">button for next page</string>
+    <string name="registration_number">Registration number</string>
+    <string name="clinic_name">Clinic/Shop name</string>
+    <string name="personal_data">Personal data:</string>
+    <string name="address">Address</string>
+    <string name="log_in_data">Log in data:</string>
+    <string name="pet_image">pet image</string>
+    <string name="species">Species:</string>
+    <string name="breed">Breed:</string>
+    <string name="name">Name:</string>
+    <string name="birthdate">Birthdate:</string>
+    <string name="pet_picture">Pet picture:</string>
+    <string name="choose_breed">Choose breed</string>
+    <string name="select_file">Select file</string>
+    <string name="display_name">%1$s %2$s</string>
+    <string name="problem">Problem: %1$s</string>
+    <string name="period">Date: %1$s</string>
+    <string name="treatment">Treatment: %1$s</string>
+    <string name="add_new">Add new %1$s</string>
+    <string name="doctorName">%1$s %2$s</string>
+
+    <string-array name="species">
+        <item>Choose…</item>
+        <item>Cat</item>
+        <item>Dog</item>
+        <item>Fish</item>
+        <item>Rabbit</item>
+        <item>Rodent</item>
+        <item>Hedgehog</item>
+        <item>Bird</item>
+        <item>Snake</item>
+        <item>Lizard</item>
+        <item>Turtle</item>
+    </string-array>
+    <string name="title_activity_client_profile">ClientProfile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="addbutton">addButton</string>
+
+    <string name="google_maps_key">AIzaSyA4z1nMNMtAwP47zWC0Xd7_gt67A3EPCMI</string>
+
+</resources>
