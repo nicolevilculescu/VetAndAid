@@ -1,16 +1,19 @@
 package com.example.vetandaid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
-import com.example.vetandaid.Log_Sign.VetFirstSign;
 import com.example.vetandaid.MenuFragments.ClinicsFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -22,9 +25,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
-public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallback, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private DatabaseReference reference;
 
@@ -79,7 +84,8 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void openDialog() {
-
+        DatePickerFragment dialog = new DatePickerFragment();
+        dialog.show(getSupportFragmentManager(), "calendar dialog");
     }
 
     private void initGoogleMap(Bundle savedInstanceState) {
@@ -144,5 +150,22 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+
+        DialogFragment timePicker = new TimePickerFragment();
+        timePicker.show(getSupportFragmentManager(), "time picker");
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        
     }
 }
