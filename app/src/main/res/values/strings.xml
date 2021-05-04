@@ -36,6 +36,7 @@
     <string name="treatment">Treatment: %1$s</string>
     <string name="add_new">Add new %1$s</string>
     <string name="doctorName">%1$s %2$s</string>
+    <string name="time">%1$s:%2$s</string>
 
     <string-array name="species">
         <item>Choose…</item>

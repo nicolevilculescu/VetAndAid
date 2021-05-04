@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.vetandaid.Log_Sign.VetFirstSign;
 import com.example.vetandaid.MenuFragments.ClinicsFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -59,8 +61,8 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
         setInfo();
 
         schedule.setOnClickListener(v -> {
-            openDialog();
-            //startActivity(new Intent(ClinicActivity.this, VetFirstSign.class));
+            //openDialog();
+            startActivity(new Intent(ClinicActivity.this, VetFirstSign.class));
         });
 
         mMapView = findViewById(R.id.mapView);
@@ -166,6 +168,6 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        
+
     }
 }

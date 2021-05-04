@@ -33,12 +33,13 @@
         app:layout_constraintTop_toBottomOf="@+id/scheduleTextView" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="45dp"
+        android:id="@+id/buttonTime1"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="70dp"
         android:text=""
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/week"
         app:layout_constraintTop_toBottomOf="@+id/scheduleTextView" />
 
@@ -60,10 +61,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="83dp"
+        android:layout_marginTop="80dp"
         android:text="-"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/editTextTime"
+        app:layout_constraintStart_toEndOf="@+id/buttonTime1"
         app:layout_constraintTop_toBottomOf="@+id/scheduleTextView" />
 
     <EditText
@@ -80,12 +81,13 @@
         app:layout_constraintTop_toBottomOf="@+id/scheduleTextView" />
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="45dp"
+        android:id="@+id/buttonTime2"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="70dp"
         android:text=""
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/line2"
         app:layout_constraintTop_toBottomOf="@+id/scheduleTextView" />
 
@@ -113,24 +115,25 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
 
     <Button
-        android:id="@+id/button5"
-        android:layout_width="45dp"
+        android:id="@+id/buttonTime3"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="10dp"
         android:text=""
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/saturday"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonTime1" />
 
     <TextView
         android:id="@+id/line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="40dp"
         android:text="-"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/editTextTime3"
+        app:layout_constraintStart_toEndOf="@+id/buttonTime3"
         app:layout_constraintTop_toBottomOf="@+id/line2" />
 
     <EditText
@@ -147,14 +150,15 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTime2" />
 
     <Button
-        android:id="@+id/button6"
-        android:layout_width="45dp"
+        android:id="@+id/buttonTime4"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text=""
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/line"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonTime2" />
 
     <TextView
         android:id="@+id/sunday"
@@ -180,24 +184,25 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTime3" />
 
     <Button
-        android:id="@+id/button7"
-        android:layout_width="45dp"
+        android:id="@+id/buttonTime5"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"
         android:layout_marginTop="10dp"
         android:text=""
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/sunday"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonTime3" />
 
     <TextView
         android:id="@+id/line4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="40dp"
         android:text="-"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/editTextTime5"
+        app:layout_constraintStart_toEndOf="@+id/buttonTime5"
         app:layout_constraintTop_toBottomOf="@+id/line" />
 
     <EditText
@@ -214,14 +219,15 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTime4" />
 
     <Button
-        android:id="@+id/button8"
-        android:layout_width="45dp"
+        android:id="@+id/buttonTime6"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text=""
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/line4"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonTime4" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/done"
