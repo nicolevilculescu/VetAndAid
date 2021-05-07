@@ -13,6 +13,8 @@ import com.example.vetandaid.model.Schedule;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapter.RecyclerViewClickListener {
 
     private ScheduleAdapter adapter;
@@ -22,20 +24,17 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
 
-        Intent intent = getIntent();
-        String category1 = intent.getStringExtra(AddPet.EXTRA_CATEGORY);
+        String[] hours = getResources().getStringArray(R.array.hours);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        FirebaseRecyclerOptions<Schedule> options = new FirebaseRecyclerOptions.Builder<Schedule>()
-                .setQuery(FirebaseDatabase.getInstance().getReference().child(category1 + "-Breeds"), Schedule.class).build();
+        adapter = new ScheduleAdapter(hours, this);
 
-        adapter = new ScheduleAdapter(options, this);
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         adapter.startListening();
@@ -45,7 +44,7 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
-    }
+    }*/
 
     @Override
     public void onViewClick(int position) {

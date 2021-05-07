@@ -17,6 +17,9 @@ import android.widget.TimePicker;
 
 import com.example.vetandaid.Log_Sign.VetFirstSign;
 import com.example.vetandaid.MenuFragments.ClinicsFragment;
+import com.example.vetandaid.RecyclerViews.Breeds;
+import com.example.vetandaid.RecyclerViews.ScheduleRecView;
+import com.example.vetandaid.model.Schedule;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,7 +34,9 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallback, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallback, DatePickerDialog.OnDateSetListener {
+
+    public static final String EXTRA_DAY = "extraDay";
 
     private DatabaseReference reference;
 
@@ -61,8 +66,8 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
         setInfo();
 
         schedule.setOnClickListener(v -> {
-            //openDialog();
-            startActivity(new Intent(ClinicActivity.this, VetFirstSign.class));
+            openDialog();
+            //startActivity(new Intent(ClinicActivity.this, VetFirstSign.class));
         });
 
         mMapView = findViewById(R.id.mapView);
@@ -162,12 +167,8 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
 
-        DialogFragment timePicker = new TimePickerFragment();
-        timePicker.show(getSupportFragmentManager(), "time picker");
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
+        Intent intent = new Intent(ClinicActivity.this, ScheduleRecView.class);
+        intent.putExtra(EXTRA_DAY, currentDate);
+        startActivityForResult(intent, 1);
     }
 }
