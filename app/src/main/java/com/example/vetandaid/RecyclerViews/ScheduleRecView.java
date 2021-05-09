@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -58,9 +59,18 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
 
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
 
-        reference.get().addOnCompleteListener(task -> {
+        SimpleDateFormat finalSdf = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+        Date date = new Date();
+        try {
+            date = finalSdf.parse(day);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date finalDate = date;
+        reference1.get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             } else {
@@ -94,10 +104,24 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
                     }
                 }
 
-            }
-            ScheduleAdapter adapter = new ScheduleAdapter(hours, this);
+                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("VetSchedule").child(id);
 
-            recyclerView.setAdapter(adapter);
+                reference2.get().addOnCompleteListener(task1 -> {
+                    if (!task1.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task1.getException());
+                    } else {
+                        for (DataSnapshot dataSnapshot : Objects.requireNonNull(task1.getResult()).getChildren()) {
+                            assert finalDate != null;
+                            if (Objects.requireNonNull(dataSnapshot.child("date").getValue()).toString().equals(finalSdf.format(finalDate))) {
+                                hours.remove(Objects.requireNonNull(dataSnapshot.child("hour").getValue()).toString());
+                            }
+                        }
+                        ScheduleAdapter adapter = new ScheduleAdapter(hours, this);
+
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
+            }
         });
     }
 

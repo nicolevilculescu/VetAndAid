@@ -15,23 +15,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.vetandaid.AddMedicalHistory;
 import com.example.vetandaid.AddPet;
 import com.example.vetandaid.PetProfile;
-import com.example.vetandaid.RecyclerViews.PetsAdapter;
 import com.example.vetandaid.R;
+import com.example.vetandaid.RecyclerViews.PetsAdapter;
 import com.example.vetandaid.model.Pet;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
