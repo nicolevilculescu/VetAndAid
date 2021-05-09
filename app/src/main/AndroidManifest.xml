@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VetAndAid">
-        <activity android:name=".Log_Sign.VetFirstSign"></activity>
+        <activity android:name=".Log_Sign.VetFirstSign" />
         <activity android:name=".ClinicActivity" />
         <activity android:name=".MedicalHistoryActivity" />
         <activity android:name=".AddMedicalHistory" />
@@ -23,6 +23,9 @@
             android:theme="@style/Theme.VetAndAid.NoActionBar" />
         <activity
             android:name=".RecyclerViews.Breeds"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RecyclerViews.ScheduleRecView"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AddPet"
