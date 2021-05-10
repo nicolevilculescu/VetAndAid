@@ -1,10 +1,6 @@
 package com.example.vetandaid;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,13 +9,11 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.example.vetandaid.Log_Sign.VetFirstSign;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.vetandaid.MenuFragments.ClinicsFragment;
-import com.example.vetandaid.RecyclerViews.Breeds;
 import com.example.vetandaid.RecyclerViews.ScheduleRecView;
-import com.example.vetandaid.model.Schedule;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,7 +35,6 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
     private DatabaseReference reference;
 
     private TextView clinicName, docName;
-    private Button schedule;
     private MapView mMapView;
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
@@ -59,7 +52,7 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
         clinicName = findViewById(R.id.clinicTextView);
         docName = findViewById(R.id.docNameTextView);
 
-        schedule = findViewById(R.id.schedule);
+        Button schedule = findViewById(R.id.schedule);
 
         reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
 
@@ -67,7 +60,6 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
 
         schedule.setOnClickListener(v -> {
             openDialog();
-            //startActivity(new Intent(ClinicActivity.this, VetFirstSign.class));
         });
 
         mMapView = findViewById(R.id.mapView);

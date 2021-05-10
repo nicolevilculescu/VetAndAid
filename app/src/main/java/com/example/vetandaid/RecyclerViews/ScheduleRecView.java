@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vetandaid.ClinicActivity;
+import com.example.vetandaid.ConfirmAppointment;
 import com.example.vetandaid.MenuFragments.ClinicsFragment;
 import com.example.vetandaid.R;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +28,12 @@ import java.util.Objects;
 
 public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapter.RecyclerViewClickListener {
 
-    String id;
+    public static final String EXTRA_DAY = "extraDay";
+    public static final String EXTRA_HOUR = "extraHour";
+
+    private ScheduleAdapter adapter;
+
+    String id, day;
 
     ArrayList<String> hours;
 
@@ -37,7 +43,7 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
         setContentView(R.layout.activity_recycler_view);
 
         Intent intent = getIntent();
-        String day = intent.getStringExtra(ClinicActivity.EXTRA_DAY);
+        day = intent.getStringExtra(ClinicActivity.EXTRA_DAY);
 
         SharedPreferences settings = getSharedPreferences(ClinicsFragment.PREFS_CLINIC_ID, Context.MODE_PRIVATE);
         id = settings.getString("id", "default");
@@ -116,7 +122,7 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
                                 hours.remove(Objects.requireNonNull(dataSnapshot.child("hour").getValue()).toString());
                             }
                         }
-                        ScheduleAdapter adapter = new ScheduleAdapter(hours, this);
+                        adapter = new ScheduleAdapter(hours, this);
 
                         recyclerView.setAdapter(adapter);
                     }
@@ -127,9 +133,10 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
 
     @Override
     public void onViewClick(int position) {
-        /*Intent resultIntent = new Intent();
-        resultIntent.putExtra("result", adapter.getItem(position).getName());
-        setResult(RESULT_OK, resultIntent);
-        finish();*/
+        Intent intent = new Intent(ScheduleRecView.this, ConfirmAppointment.class);
+        intent.putExtra(EXTRA_DAY, day);
+        intent.putExtra(EXTRA_HOUR, hours.get(position));
+        System.out.println("AIIIICIIIII: " + hours.get(position));
+        startActivityForResult(intent, 1);
     }
 }
