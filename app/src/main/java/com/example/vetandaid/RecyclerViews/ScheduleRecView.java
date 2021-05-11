@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -120,6 +121,16 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
                         recyclerView.setAdapter(adapter);
                     }
                 });
+
+                if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.getInstance().get(Calendar.DAY_OF_WEEK) &&
+                        calendar.get(Calendar.MONTH) == Calendar.getInstance().get(Calendar.MONTH) &&
+                        calendar.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR)) {
+                    for (String s: h) {
+                        if (s.compareTo(String.valueOf(java.time.LocalTime.now())) <= 0) {
+                            hours.remove(s);
+                        }
+                    }
+                }
             }
         });
     }
