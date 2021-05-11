@@ -10,8 +10,8 @@ public class VetSchedule extends Schedule {
         this.clientId = clientId;
     }
 
-    public VetSchedule(String hour, String petId, String weekDay, String clientId) {
-        super(hour, petId, weekDay);
+    public VetSchedule(String hour, String petId, String date, String clientId) {
+        super(hour, petId, date);
         this.clientId = clientId;
     }
 

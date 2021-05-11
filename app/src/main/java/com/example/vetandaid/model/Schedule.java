@@ -3,15 +3,15 @@ package com.example.vetandaid.model;
 public class Schedule {
     private String hour;
     private String petId;
-    private String weekDay;
+    private String date;
 
     public Schedule() {
     }
 
-    public Schedule(String hour, String petId, String weekDay) {
+    public Schedule(String hour, String petId, String date) {
         this.hour = hour;
         this.petId = petId;
-        this.weekDay = weekDay;
+        this.date = date;
     }
 
     public String getHour() {
@@ -30,11 +30,11 @@ public class Schedule {
         this.petId = petId;
     }
 
-    public String getWeekDay() {
-        return weekDay;
+    public String getDate() {
+        return date;
     }
 
-    public void setWeekDay(String weekDay) {
-        this.weekDay = weekDay;
+    public void setDate(String date) {
+        this.date = date;
     }
 }

@@ -49,12 +49,15 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
         id = settings.getString("id", "default");
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM dd, yyyy", Locale.ENGLISH);
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.ENGLISH);
         try {
             calendar.setTime(Objects.requireNonNull(sdf.parse(day)));
+            date = sdf.parse(day);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Date finalDate = date;
 
         String[] h = getResources().getStringArray(R.array.hours);
         hours = new ArrayList<>();
@@ -66,29 +69,19 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
         recyclerView.setLayoutManager(gridLayoutManager);
 
         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
-
-        SimpleDateFormat finalSdf = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
-        Date date = new Date();
-        try {
-            date = finalSdf.parse(day);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Date finalDate = date;
         reference1.get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             } else {
                 String opening = "", closing = "";
                 for (DataSnapshot dataSnapshot : Objects.requireNonNull(task.getResult()).getChildren()) {
-                    if (Objects.equals(dataSnapshot.getKey(), "openingHourWeek") && calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY ||
+                    if (Objects.equals(dataSnapshot.getKey(), "openingHourWeek") && (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY ||
                             calendar.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ||
-                            calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+                            calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY)) {
                         opening = Objects.requireNonNull(dataSnapshot.getValue()).toString().trim();
-                    } else if (Objects.equals(dataSnapshot.getKey(), "closingHourWeek") && calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY ||
+                    } else if (Objects.equals(dataSnapshot.getKey(), "closingHourWeek") && (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY ||
                             calendar.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ||
-                            calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+                            calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY)) {
                         closing = Objects.requireNonNull(dataSnapshot.getValue()).toString().trim();
                     } else if (Objects.equals(dataSnapshot.getKey(), "openingHourSaturday") &&
                             calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
@@ -118,7 +111,7 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
                     } else {
                         for (DataSnapshot dataSnapshot : Objects.requireNonNull(task1.getResult()).getChildren()) {
                             assert finalDate != null;
-                            if (Objects.requireNonNull(dataSnapshot.child("date").getValue()).toString().equals(finalSdf.format(finalDate))) {
+                            if (Objects.requireNonNull(dataSnapshot.child("date").getValue()).toString().equals(sdf.format(finalDate))) {
                                 hours.remove(Objects.requireNonNull(dataSnapshot.child("hour").getValue()).toString());
                             }
                         }
@@ -136,7 +129,6 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
         Intent intent = new Intent(ScheduleRecView.this, ConfirmAppointment.class);
         intent.putExtra(EXTRA_DAY, day);
         intent.putExtra(EXTRA_HOUR, hours.get(position));
-        System.out.println("AIIIICIIIII: " + hours.get(position));
         startActivityForResult(intent, 1);
     }
 }
