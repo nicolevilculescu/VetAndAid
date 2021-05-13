@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.example.vetandaid.MenuFragments.PetsFragment;
+import com.example.vetandaid.ClientMenuFragments.PetsFragment;
 import com.example.vetandaid.RecyclerViews.Breeds;
 import com.example.vetandaid.RecyclerViews.MedicalAdapter;
 import com.example.vetandaid.model.MedicalHistory;

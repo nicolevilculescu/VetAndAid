@@ -25,7 +25,7 @@ public class ClinicsAdapter extends FirebaseRecyclerAdapter<Vet, ClinicsAdapter.
     @Override
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Vet model) {
         holder.clinicName.setText(model.getClinic_name());
-        holder.name.setText(holder.itemView.getContext().getString(R.string.doctorName, model.getFirstName(), model.getLastName()));
+        holder.name.setText(holder.itemView.getContext().getString(R.string.fullName, model.getFirstName(), model.getLastName()));
     }
 
     @NonNull

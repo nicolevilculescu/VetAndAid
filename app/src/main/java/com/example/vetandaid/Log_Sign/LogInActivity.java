@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.vetandaid.ClientProfile;
 import com.example.vetandaid.R;
+import com.example.vetandaid.VetProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -106,7 +107,7 @@ public class LogInActivity extends AppCompatActivity {
                                         endLoading();
                                         break;
                                     case "vet":
-                                        //startActivity(new Intent(LogInActivity.this, VetProfile.class));
+                                        startActivity(new Intent(LogInActivity.this, VetProfile.class));
                                         endLoading();
                                         break;
                                     case "other":

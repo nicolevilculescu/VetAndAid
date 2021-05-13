@@ -1,4 +1,4 @@
-package com.example.vetandaid.MenuFragments;
+package com.example.vetandaid.ClientMenuFragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

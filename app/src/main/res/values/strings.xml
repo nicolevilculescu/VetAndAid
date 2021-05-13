@@ -5,11 +5,9 @@
     <string name="sign_up">Sign up</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="title_activity_log_in">LogInActivity</string>
     <string name="tab_text_1">Client</string>
     <string name="tab_text_2">Vet</string>
     <string name="tab_text_3">Other</string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat password</string>
@@ -35,7 +33,7 @@
     <string name="period">Date: %1$s</string>
     <string name="treatment">Treatment: %1$s</string>
     <string name="add_new">Add new %1$s</string>
-    <string name="doctorName">%1$s %2$s</string>
+    <string name="fullName">%1$s %2$s</string>
     <string name="time">%1$s:%2$s</string>
     <string name="date_time">%1$s, %2$s</string>
 
@@ -104,7 +102,6 @@
         <item>23:30</item>
     </string-array>
 
-    <string name="title_activity_client_profile">ClientProfile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>

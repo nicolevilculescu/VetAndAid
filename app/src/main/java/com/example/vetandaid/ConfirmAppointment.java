@@ -15,7 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.vetandaid.MenuFragments.ClinicsFragment;
+import com.example.vetandaid.ClientMenuFragments.ClinicsFragment;
 import com.example.vetandaid.RecyclerViews.ScheduleRecView;
 import com.example.vetandaid.model.ClientSchedule;
 import com.example.vetandaid.model.VetSchedule;

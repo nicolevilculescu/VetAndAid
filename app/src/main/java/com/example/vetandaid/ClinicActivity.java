@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.vetandaid.MenuFragments.ClinicsFragment;
+import com.example.vetandaid.ClientMenuFragments.ClinicsFragment;
 import com.example.vetandaid.RecyclerViews.ScheduleRecView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -75,7 +75,7 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
             else {
                 clinicName.setText(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("clinic_name").getValue()).toString().trim());
 
-                docName.setText(getString(R.string.doctorName,
+                docName.setText(getString(R.string.fullName,
                         Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("firstName").getValue()).toString().trim(),
                         Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("lastName").getValue()).toString().trim()));
             }

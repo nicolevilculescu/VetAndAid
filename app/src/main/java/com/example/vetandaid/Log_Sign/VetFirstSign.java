@@ -5,6 +5,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.example.vetandaid.R;
 import com.example.vetandaid.RegistrationFragments.VetFragment;
 import com.example.vetandaid.TimePickerFragment;
+import com.example.vetandaid.VetProfile;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -76,6 +78,7 @@ public class VetFirstSign extends AppCompatActivity implements TimePickerFragmen
         done.setOnClickListener(v -> {
             if (validate()) {
                 insertData();
+                startActivity(new Intent(VetFirstSign.this, VetProfile.class));
             }
         });
     }

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vetandaid.ClinicActivity;
 import com.example.vetandaid.ConfirmAppointment;
-import com.example.vetandaid.MenuFragments.ClinicsFragment;
+import com.example.vetandaid.ClientMenuFragments.ClinicsFragment;
 import com.example.vetandaid.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;

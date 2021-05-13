@@ -13,11 +13,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.vetandaid.Log_Sign.MainActivity;
 import com.example.vetandaid.ClientMenuFragments.ChatFragment;
-import com.example.vetandaid.ClientMenuFragments.ClinicsFragment;
 import com.example.vetandaid.ClientMenuFragments.PetsFragment;
-import com.example.vetandaid.ClientMenuFragments.ClientScheduleFragment;
+import com.example.vetandaid.Log_Sign.MainActivity;
+import com.example.vetandaid.VetMenuFragments.VetScheduleFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,9 +26,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
-public class ClientProfile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class VetProfile extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
+
     private DrawerLayout drawer;
 
     private FirebaseUser firebaseUser;
@@ -39,15 +41,15 @@ public class ClientProfile extends AppCompatActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_profile);
+        setContentView(R.layout.activity_vet_profile);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view2);
         View headerView = navigationView.getHeaderView(0);
 
         name = headerView.findViewById(R.id.profileName);
@@ -73,7 +75,7 @@ public class ClientProfile extends AppCompatActivity implements NavigationView.O
         assert firebaseUser != null;
         email.setText(firebaseUser.getEmail());
 
-        drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout2);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -83,35 +85,31 @@ public class ClientProfile extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new PetsFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_pets);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,
+                    new VetScheduleFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_schedule);
         }
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_appointments:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ClientScheduleFragment()).commit();
+            case R.id.nav_schedule:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,
+                        new VetScheduleFragment()).commit();
                 break;
-            case R.id.nav_pets:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+            case R.id.nav_pets2:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,
                         new PetsFragment()).commit();
                 break;
-            case R.id.nav_chat:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+            case R.id.nav_chat2:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,
                         new ChatFragment()).commit();
                 break;
-            case R.id.nav_clinics:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ClinicsFragment()).commit();
-                break;
-            case R.id.nav_logout:
+            case R.id.nav_logout2:
                 //logging out
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(ClientProfile.this, MainActivity.class);
+                Intent intent = new Intent(VetProfile.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

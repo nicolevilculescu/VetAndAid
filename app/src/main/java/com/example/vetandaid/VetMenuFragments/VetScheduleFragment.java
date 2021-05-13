@@ -1,4 +1,4 @@
-package com.example.vetandaid.MenuFragments;
+package com.example.vetandaid.VetMenuFragments;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,9 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vetandaid.R;
-import com.example.vetandaid.RecyclerViews.ClientScheduleAdapter;
-import com.example.vetandaid.RecyclerViews.ScheduleAdapter;
-import com.example.vetandaid.model.ClientSchedule;
+import com.example.vetandaid.RecyclerViews.VetScheduleAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +33,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-public class ScheduleFragment extends Fragment implements ClientScheduleAdapter.RecyclerViewClickListener {
+public class VetScheduleFragment extends Fragment implements VetScheduleAdapter.RecyclerViewClickListener {
 
     RecyclerView recyclerView;
 
@@ -44,7 +42,7 @@ public class ScheduleFragment extends Fragment implements ClientScheduleAdapter.
     View v;
     SimpleDateFormat sdf;
 
-    private ClientScheduleAdapter adapter;
+    private VetScheduleAdapter adapter;
 
     @Nullable
     @Override
@@ -63,10 +61,10 @@ public class ScheduleFragment extends Fragment implements ClientScheduleAdapter.
         Calendar cal = Calendar.getInstance();
         sdf = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.ENGLISH);
 
-        ScheduleFragment ceva = this;
+        VetScheduleFragment ceva = this;
 
         assert firebaseUser != null;
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("ClientSchedule").child(firebaseUser.getUid());
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("VetSchedule").child(firebaseUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -91,7 +89,7 @@ public class ScheduleFragment extends Fragment implements ClientScheduleAdapter.
                     e.printStackTrace();
                 }
 
-                adapter = new ClientScheduleAdapter(list, ceva);
+                adapter = new VetScheduleAdapter(list, ceva);
 
                 recyclerView.setAdapter(adapter);
             }

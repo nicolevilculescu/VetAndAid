@@ -1,4 +1,4 @@
-package com.example.vetandaid.MenuFragments;
+package com.example.vetandaid.ClientMenuFragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vetandaid.ClinicActivity;
-import com.example.vetandaid.PetProfile;
 import com.example.vetandaid.R;
 import com.example.vetandaid.RecyclerViews.ClinicsAdapter;
-import com.example.vetandaid.RecyclerViews.PetsAdapter;
-import com.example.vetandaid.model.Pet;
 import com.example.vetandaid.model.Vet;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;

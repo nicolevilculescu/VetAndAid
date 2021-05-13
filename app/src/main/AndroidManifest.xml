@@ -3,8 +3,8 @@
     package="com.example.vetandaid">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".Start"
@@ -19,16 +19,32 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ConfirmAppointment" />
-        <activity android:name=".Log_Sign.VetFirstSign" />
-        <activity android:name=".ClinicActivity" />
-        <activity android:name=".MedicalHistoryActivity" />
-        <activity android:name=".AddMedicalHistory" />
-        <activity android:name=".PetProfile" />
+        <activity
+            android:name=".ConfirmAppointment"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Log_Sign.VetFirstSign"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ClinicActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MedicalHistoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AddMedicalHistory"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PetProfile"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".VetProfile"
+            android:theme="@style/Theme.VetAndAid.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ClientProfile"
-            android:label="@string/title_activity_client_profile"
-            android:theme="@style/Theme.VetAndAid.NoActionBar" />
+            android:theme="@style/Theme.VetAndAid.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RecyclerViews.Breeds"
             android:screenOrientation="portrait" />
@@ -40,7 +56,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Log_Sign.SignUpActivity"
-            android:label="@string/title_activity_sign_up"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.VetAndAid.NoActionBar" />
         <activity
