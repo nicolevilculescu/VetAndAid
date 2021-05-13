@@ -12,15 +12,11 @@ import com.example.vetandaid.R;
 import com.example.vetandaid.model.MedicalHistory;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Objects;
 
 public class MedicalAdapter extends FirebaseRecyclerAdapter<MedicalHistory, MedicalAdapter.MyViewHolder> {
 
@@ -67,7 +63,7 @@ public class MedicalAdapter extends FirebaseRecyclerAdapter<MedicalHistory, Medi
         if (count >= total - 1) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_item, parent, false);
         } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.medical_item, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.three_field_item, parent, false);
         }
         count++;
         return new MyViewHolder(view, listener);
@@ -79,9 +75,9 @@ public class MedicalAdapter extends FirebaseRecyclerAdapter<MedicalHistory, Medi
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
             super(itemView);
-            problem = itemView.findViewById(R.id.problem);
-            date = itemView.findViewById(R.id.period);
-            treatment = itemView.findViewById(R.id.treatment);
+            problem = itemView.findViewById(R.id.field1);
+            date = itemView.findViewById(R.id.field2);
+            treatment = itemView.findViewById(R.id.field3);
             add = itemView.findViewById(R.id.addText);
             this.recyclerViewClickListener = recyclerViewClickListener;
 

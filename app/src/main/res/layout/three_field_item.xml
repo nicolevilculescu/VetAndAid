@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/problem"
+            android:id="@+id/field1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="17sp"
@@ -23,7 +23,7 @@
             android:layout_marginRight="20dp"/>
 
         <TextView
-            android:id="@+id/period"
+            android:id="@+id/field2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="17sp"
@@ -32,7 +32,7 @@
             android:layout_marginRight="20dp"/>
 
         <TextView
-            android:id="@+id/treatment"
+            android:id="@+id/field3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="17sp"

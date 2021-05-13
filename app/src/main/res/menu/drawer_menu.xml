@@ -16,6 +16,10 @@
             android:id="@+id/nav_clinics"
             android:icon="@drawable/ic_clinics"
             android:title="Clinics" />
+        <item
+            android:id="@+id/nav_appointments"
+            android:icon="@drawable/ic_schedule"
+            android:title="Appointments" />
     </group>
 
     <item android:title="Other">

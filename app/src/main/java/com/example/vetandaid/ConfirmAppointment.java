@@ -1,8 +1,5 @@
 package com.example.vetandaid;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,11 +12,12 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.vetandaid.MenuFragments.ClinicsFragment;
-import com.example.vetandaid.RecyclerViews.ScheduleAdapter;
 import com.example.vetandaid.RecyclerViews.ScheduleRecView;
 import com.example.vetandaid.model.ClientSchedule;
-import com.example.vetandaid.model.MedicalHistory;
 import com.example.vetandaid.model.VetSchedule;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,13 +36,8 @@ public class ConfirmAppointment extends AppCompatActivity implements AdapterView
 
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
-    private ValueEventListener listener;
     ArrayList<String> list;
     ArrayAdapter<String> adapter;
-
-    private TextView date, time;
-
-    private Button cancel, confirm;
 
     String day, hour, petId, clinicId;
 
@@ -60,8 +53,8 @@ public class ConfirmAppointment extends AppCompatActivity implements AdapterView
         day = intent.getStringExtra(ScheduleRecView.EXTRA_DAY);
         hour = intent.getStringExtra(ScheduleRecView.EXTRA_HOUR);
 
-        date = findViewById(R.id.dateView);
-        time = findViewById(R.id.timeView);
+        TextView date = findViewById(R.id.dateView);
+        TextView time = findViewById(R.id.timeView);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Pets");
 
@@ -75,10 +68,10 @@ public class ConfirmAppointment extends AppCompatActivity implements AdapterView
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
-        listener = databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (Objects.requireNonNull(dataSnapshot.child("ownerId").getValue()).toString().trim().equals(firebaseUser.getUid()) &&
                             !Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString().trim().equals("no")) {
                         list.add(Objects.requireNonNull(dataSnapshot.child("name").getValue()).toString());
@@ -86,6 +79,7 @@ public class ConfirmAppointment extends AppCompatActivity implements AdapterView
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
@@ -93,8 +87,8 @@ public class ConfirmAppointment extends AppCompatActivity implements AdapterView
         });
         spinner.setOnItemSelectedListener(this);
 
-        cancel = findViewById(R.id.cancelButton);
-        confirm = findViewById(R.id.confirmButton);
+        Button cancel = findViewById(R.id.cancelButton);
+        Button confirm = findViewById(R.id.confirmButton);
 
         date.setText(day);
         time.setText(hour);
@@ -103,6 +97,7 @@ public class ConfirmAppointment extends AppCompatActivity implements AdapterView
 
         confirm.setOnClickListener(v -> {
             uploadInfo();
+            startActivity(new Intent(ConfirmAppointment.this, ClientProfile.class));
         });
     }
 

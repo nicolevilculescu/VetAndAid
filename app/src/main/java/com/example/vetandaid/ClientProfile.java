@@ -1,5 +1,11 @@
 package com.example.vetandaid;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,18 +13,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
 import com.example.vetandaid.Log_Sign.MainActivity;
 import com.example.vetandaid.MenuFragments.ChatFragment;
 import com.example.vetandaid.MenuFragments.ClinicsFragment;
 import com.example.vetandaid.MenuFragments.PetsFragment;
+import com.example.vetandaid.MenuFragments.ScheduleFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,10 +32,9 @@ import java.util.Objects;
 public class ClientProfile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
 
-    private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
 
-    private TextView name, email;
+    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +44,14 @@ public class ClientProfile extends AppCompatActivity implements NavigationView.O
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         name = headerView.findViewById(R.id.profileName);
-        email = headerView.findViewById(R.id.profileEmail);
+        TextView email = headerView.findViewById(R.id.profileEmail);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
         reference.addValueEventListener(new ValueEventListener() {
@@ -94,6 +92,10 @@ public class ClientProfile extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_appointments:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new ScheduleFragment()).commit();
+                break;
             case R.id.nav_pets:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new PetsFragment()).commit();
@@ -105,12 +107,6 @@ public class ClientProfile extends AppCompatActivity implements NavigationView.O
             case R.id.nav_clinics:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ClinicsFragment()).commit();
-
-                /*SharedPreferences setting = getSharedPreferences(Constants.CLINICS, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = setting.edit();
-                editor.putString("from", "ClientProfile");
-                editor.apply();*/
-
                 break;
             case R.id.nav_logout:
                 //logging out

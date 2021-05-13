@@ -5,7 +5,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.vetandaid"
@@ -37,6 +37,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'com.afollestad:sectioned-recyclerview:0.2.3'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'com.squareup.picasso:picasso:2.5.2'
