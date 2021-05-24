@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.example.vetandaid.ClientMenuFragments.PetsFragment;
+import com.example.vetandaid.ClientMenuFragments.ClientPetsFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,7 +28,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_history);
 
-        SharedPreferences settings = getSharedPreferences(PetsFragment.PREFS_PET_ID, Context.MODE_PRIVATE);
+        SharedPreferences settings = getSharedPreferences(Constants.PREFS_PET_ID, Context.MODE_PRIVATE);
         id1 = settings.getString("id", "default");
 
         settings = getSharedPreferences(PetProfile.PREFS_MEDICAL_ID, Context.MODE_PRIVATE);
@@ -55,8 +55,6 @@ public class MedicalHistoryActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
-        startActivity(new Intent(MedicalHistoryActivity.this, PetProfile.class));
+        finish();
     }
 }

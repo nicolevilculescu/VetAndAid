@@ -1,24 +1,29 @@
 package com.example.vetandaid;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.vetandaid.ClientMenuFragments.PetsFragment;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.vetandaid.model.MedicalHistory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class AddMedicalHistory extends AppCompatActivity {
+import java.text.DateFormat;
+import java.util.Calendar;
 
-    private FloatingActionButton button;
-    private EditText problem, date, treatment, description;
+public class AddMedicalHistory extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+
+    private EditText problem, treatment, description;
+    private Button date;
 
     private DatabaseReference databaseReference;
 
@@ -29,17 +34,26 @@ public class AddMedicalHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medical_history);
 
-        SharedPreferences settings = getSharedPreferences(PetsFragment.PREFS_PET_ID, Context.MODE_PRIVATE);
+        SharedPreferences settings = getSharedPreferences(Constants.PREFS_PET_ID, Context.MODE_PRIVATE);
         id = settings.getString("id", "default");
 
         problem = findViewById(R.id.problemEditText);
-        date = findViewById(R.id.dateEditText);
+        date = findViewById(R.id.datePickerButton);
         treatment = findViewById(R.id.treatmentEditText);
         description = findViewById(R.id.descriptionEditText);
 
-        button = findViewById(R.id.addHistory);
+        FloatingActionButton button = findViewById(R.id.addHistory);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("MedicalHistory").child(id);
+
+        date.setOnClickListener(v -> {
+            SharedPreferences setting = getSharedPreferences(Constants.PREFS_DATE, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = setting.edit();
+            editor.putString("date", "before");
+            editor.apply();
+
+            openDialog();
+        });
 
         button.setOnClickListener(v -> {
             if (validate()) {
@@ -49,9 +63,23 @@ public class AddMedicalHistory extends AppCompatActivity {
         });
     }
 
+    private void openDialog() {
+        DatePickerFragment dialog = new DatePickerFragment();
+        dialog.show(getSupportFragmentManager(), "calendar dialog");
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        date.setText(DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime()));
+    }
+
     private boolean validate() {
         if (problem.getText().toString().length() != 0) {
-            if (date.getText().toString().length() != 0) {
+            if (!date.getText().toString().equals("Pick date")) {
                 if (treatment.getText().toString().length() != 0) {
                     if (description.getText().toString().length() == 0) {
                         description.setText("-");
@@ -63,12 +91,11 @@ public class AddMedicalHistory extends AppCompatActivity {
                     return false;
                 }
             } else {
-                Toast.makeText(this, "Date field empty", Toast.LENGTH_SHORT).show();
-                date.requestFocus();
+                Toast.makeText(this, "Date not chosen!", Toast.LENGTH_SHORT).show();
                 return false;
             }
         } else {
-            Toast.makeText(this, "Problem field empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Problem field empty!", Toast.LENGTH_SHORT).show();
             problem.requestFocus();
             return false;
         }

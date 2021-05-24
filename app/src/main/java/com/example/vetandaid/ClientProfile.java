@@ -16,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.vetandaid.Log_Sign.MainActivity;
 import com.example.vetandaid.ClientMenuFragments.ChatFragment;
 import com.example.vetandaid.ClientMenuFragments.ClinicsFragment;
-import com.example.vetandaid.ClientMenuFragments.PetsFragment;
+import com.example.vetandaid.ClientMenuFragments.ClientPetsFragment;
 import com.example.vetandaid.ClientMenuFragments.ClientScheduleFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,7 +84,7 @@ public class ClientProfile extends AppCompatActivity implements NavigationView.O
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new PetsFragment()).commit();
+                    new ClientPetsFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_pets);
         }
     }
@@ -98,7 +98,7 @@ public class ClientProfile extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_pets:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new PetsFragment()).commit();
+                        new ClientPetsFragment()).commit();
                 break;
             case R.id.nav_chat:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

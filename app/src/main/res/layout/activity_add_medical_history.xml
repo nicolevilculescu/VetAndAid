@@ -39,15 +39,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/problemOption" />
 
-    <EditText
-        android:id="@+id/dateEditText"
-        android:layout_width="185dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="30dp"
-        android:ems="10"
-        android:inputType="date"
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="100dp"
+        android:text="Pick date"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dateOption"
         app:layout_constraintTop_toBottomOf="@+id/problemEditText" />
 
     <TextView
@@ -65,12 +66,12 @@
         android:id="@+id/treatmentEditText"
         android:layout_width="185dp"
         android:layout_height="40dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="30dp"
         android:ems="10"
         android:inputType="textLongMessage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
 
     <TextView
         android:id="@+id/descriptionOption"

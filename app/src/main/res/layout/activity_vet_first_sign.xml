@@ -43,19 +43,6 @@
         app:layout_constraintStart_toEndOf="@+id/week"
         app:layout_constraintTop_toBottomOf="@+id/scheduleTextView" />
 
-    <EditText
-        android:id="@+id/editTextTime"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="70dp"
-        android:ems="10"
-        android:inputType="textShortMessage|time"
-        android:textSize="15sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/week"
-        app:layout_constraintTop_toBottomOf="@+id/scheduleTextView" />
-
     <TextView
         android:id="@+id/line2"
         android:layout_width="wrap_content"
@@ -65,19 +52,6 @@
         android:text="-"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/buttonTime1"
-        app:layout_constraintTop_toBottomOf="@+id/scheduleTextView" />
-
-    <EditText
-        android:id="@+id/editTextTime2"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="70dp"
-        android:ems="10"
-        android:inputType="textShortMessage|time"
-        android:textSize="15sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/line2"
         app:layout_constraintTop_toBottomOf="@+id/scheduleTextView" />
 
     <Button
@@ -101,19 +75,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/week" />
 
-    <EditText
-        android:id="@+id/editTextTime3"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:inputType="textShortMessage|time"
-        android:textSize="15sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/saturday"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
-
     <Button
         android:id="@+id/buttonTime3"
         android:layout_width="65dp"
@@ -136,19 +97,6 @@
         app:layout_constraintStart_toEndOf="@+id/buttonTime3"
         app:layout_constraintTop_toBottomOf="@+id/line2" />
 
-    <EditText
-        android:id="@+id/editTextTime4"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:inputType="textShortMessage|time"
-        android:textSize="15sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/line"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime2" />
-
     <Button
         android:id="@+id/buttonTime4"
         android:layout_width="65dp"
@@ -160,6 +108,15 @@
         app:layout_constraintStart_toEndOf="@+id/line"
         app:layout_constraintTop_toBottomOf="@+id/buttonTime2" />
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="26dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saturday" />
+
     <TextView
         android:id="@+id/sunday"
         android:layout_width="wrap_content"
@@ -170,19 +127,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saturday" />
 
-    <EditText
-        android:id="@+id/editTextTime5"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:inputType="textShortMessage|time"
-        android:textSize="15sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/sunday"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime3" />
-
     <Button
         android:id="@+id/buttonTime5"
         android:layout_width="65dp"
@@ -191,6 +135,7 @@
         android:layout_marginTop="10dp"
         android:text=""
         android:textSize="10sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/sunday"
         app:layout_constraintTop_toBottomOf="@+id/buttonTime3" />
 
@@ -202,21 +147,9 @@
         android:layout_marginTop="40dp"
         android:text="-"
         android:textSize="15sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/buttonTime5"
         app:layout_constraintTop_toBottomOf="@+id/line" />
-
-    <EditText
-        android:id="@+id/editTextTime6"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:inputType="textShortMessage|time"
-        android:textSize="15sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/line4"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime4" />
 
     <Button
         android:id="@+id/buttonTime6"
@@ -226,6 +159,7 @@
         android:layout_marginTop="10dp"
         android:text=""
         android:textSize="10sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/line4"
         app:layout_constraintTop_toBottomOf="@+id/buttonTime4" />
 

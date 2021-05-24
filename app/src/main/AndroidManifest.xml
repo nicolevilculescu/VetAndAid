@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VetAndAid">
+        <activity android:name=".MessageActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -21,30 +22,30 @@
 
         <activity
             android:name=".ConfirmAppointment"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Log_Sign.VetFirstSign"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ClinicActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MedicalHistoryActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddMedicalHistory"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PetProfile"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".VetProfile"
-            android:theme="@style/Theme.VetAndAid.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.VetAndAid.NoActionBar" />
         <activity
             android:name=".ClientProfile"
-            android:theme="@style/Theme.VetAndAid.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.VetAndAid.NoActionBar" />
         <activity
             android:name=".RecyclerViews.Breeds"
             android:screenOrientation="portrait" />

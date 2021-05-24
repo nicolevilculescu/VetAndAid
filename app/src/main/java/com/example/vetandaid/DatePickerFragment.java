@@ -2,6 +2,8 @@ package com.example.vetandaid;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,9 @@ public class DatePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        SharedPreferences settings = requireActivity().getSharedPreferences(Constants.PREFS_DATE, Context.MODE_PRIVATE);
+        String date = settings.getString("date", "default");
+
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -22,7 +27,11 @@ public class DatePickerFragment extends DialogFragment {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
 
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        if (date.equals("after")) {
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        } else {
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + 1000);
+        }
 
         return datePickerDialog;
     }

@@ -1,11 +1,5 @@
 package com.example.vetandaid;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,17 +11,19 @@ import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.example.vetandaid.ClientMenuFragments.PetsFragment;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.vetandaid.RecyclerViews.Breeds;
 import com.example.vetandaid.RecyclerViews.MedicalAdapter;
 import com.example.vetandaid.model.MedicalHistory;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
@@ -50,10 +46,9 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
     private TabHost tabHost;
     private MedicalAdapter adapter;
 
-    private FloatingActionButton add, edit, done, breedButton;
+    private FloatingActionButton edit, done, breedButton;
 
-    String id1, id2, birthdate, species;
-    int total = 0;
+    String id1, id2, birthdate, species, accType;
 
     public static final String EXTRA_CATEGORY = "extraCategory";
     public static final String EXTRA_INFO = "extraInfo";
@@ -63,8 +58,11 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_profile);
 
-        SharedPreferences settings = getSharedPreferences(PetsFragment.PREFS_PET_ID, Context.MODE_PRIVATE);
+        SharedPreferences settings = getSharedPreferences(Constants.PREFS_PET_ID, Context.MODE_PRIVATE);
         id1 = settings.getString("id", "default");
+
+        settings = getSharedPreferences(Constants.PREFS_ACC_TYPE, Context.MODE_PRIVATE);
+        accType = settings.getString("accType", "default");
 
         name = findViewById(R.id.nameTextView);
         age = findViewById(R.id.ageTextView);
@@ -74,6 +72,14 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
         schedule = findViewById(R.id.schedulePet);
         delete = findViewById(R.id.deletePet);
         done = findViewById(R.id.doneButton);
+
+        if (accType.equals("client")) {
+            edit.setVisibility(View.VISIBLE);
+            delete.setVisibility(View.VISIBLE);
+        } else {
+            edit.setVisibility(View.INVISIBLE);
+            delete.setVisibility(View.INVISIBLE);
+        }
 
         img = findViewById(R.id.profile_image);
 
@@ -171,6 +177,9 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
 
             startActivity(new Intent(PetProfile.this, ClientProfile.class));
         });*/
+
+        FloatingActionButton add = findViewById(R.id.addNew2);
+        add.setOnClickListener(v1 -> startActivity(new Intent(PetProfile.this, AddMedicalHistory.class)));
     }
 
     private void tabSetup() {
@@ -187,7 +196,7 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
         FirebaseRecyclerOptions<MedicalHistory> options = new FirebaseRecyclerOptions.Builder<MedicalHistory>()
                 .setQuery(FirebaseDatabase.getInstance().getReference().child("MedicalHistory").child(id1), MedicalHistory.class).build();
 
-        adapter = new MedicalAdapter(options, this, id1);
+        adapter = new MedicalAdapter(options, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -195,43 +204,37 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
     public void onViewClick(int position) {
         DatabaseReference reference;
         reference = FirebaseDatabase.getInstance().getReference().child("MedicalHistory").child(id1);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                total = 0;
-                for (DataSnapshot ignored : snapshot.getChildren()) {
-                   total++;
-                }
-                if (position == total - 1) {
-                    add = findViewById(R.id.floatingActionButton2);
-                    add.setOnClickListener(v1 -> startActivity(new Intent(PetProfile.this, AddMedicalHistory.class)));
-                } else {
-                    reference.get().addOnCompleteListener(task -> {
-                        if (!task.isSuccessful()) {
-                            Log.e("firebase", "Error getting data", task.getException());
-                        } else {
-                            for (DataSnapshot dataSnapshot : Objects.requireNonNull(task.getResult()).getChildren()) {
-                                if (Objects.requireNonNull(dataSnapshot.child("date").getValue()).toString().equals(adapter.getItem(position).getDate()) &&
-                                        Objects.requireNonNull(dataSnapshot.child("description").getValue()).toString().equals(adapter.getItem(position).getDescription()) &&
-                                        Objects.requireNonNull(dataSnapshot.child("problem").getValue()).toString().equals(adapter.getItem(position).getProblem()) &&
-                                        Objects.requireNonNull(dataSnapshot.child("treatment").getValue()).toString().equals(adapter.getItem(position).getTreatment())) {
+        DatabaseReference finalReference = reference;
+        reference.get().addOnCompleteListener(task1 -> {
+            if (!task1.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task1.getException());
+            } else {
+                finalReference.get().addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        for (DataSnapshot dataSnapshot : Objects.requireNonNull(task.getResult()).getChildren()) {
+                            if (Objects.requireNonNull(dataSnapshot.child("date").getValue()).toString().equals(adapter.getItem(position).getDate()) &&
+                                    Objects.requireNonNull(dataSnapshot.child("description").getValue()).toString()
+                                            .equals(adapter.getItem(position).getDescription()) &&
+                                    Objects.requireNonNull(dataSnapshot.child("problem").getValue()).toString()
+                                            .equals(adapter.getItem(position).getProblem()) &&
+                                    Objects.requireNonNull(dataSnapshot.child("treatment").getValue()).toString()
+                                            .equals(adapter.getItem(position).getTreatment())) {
 
-                                    id2 = dataSnapshot.getKey();
+                                id2 = dataSnapshot.getKey();
 
-                                    SharedPreferences settings = getSharedPreferences(PREFS_MEDICAL_ID, Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = settings.edit();
-                                    editor.putString("id", id2);
-                                    editor.apply();
+                                SharedPreferences settings = getSharedPreferences(PREFS_MEDICAL_ID, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putString("id", id2);
+                                editor.apply();
 
-                                    startActivity(new Intent(PetProfile.this, MedicalHistoryActivity.class));
-                                }
+                                startActivity(new Intent(PetProfile.this, MedicalHistoryActivity.class));
                             }
                         }
-                    });
-                }
+                    }
+                });
             }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
@@ -276,6 +279,10 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
     public void onBackPressed() {
         super.onBackPressed();
 
-        startActivity(new Intent(PetProfile.this, ClientProfile.class));
+        if (accType.equals("client")) {
+            startActivity(new Intent(PetProfile.this, ClientProfile.class));
+        } else if (accType.equals("vet")){
+            startActivity(new Intent(PetProfile.this, VetProfile.class));
+        }
     }
 }

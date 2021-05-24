@@ -10,30 +10,41 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vetandaid.R;
-import com.example.vetandaid.model.Pet;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
-public class PetsAdapter extends FirebaseRecyclerAdapter<Pet, PetsAdapter.MyViewHolder> {
+import java.util.ArrayList;
+import java.util.Map;
+
+public class VetPetsAdapter extends RecyclerView.Adapter<VetPetsAdapter.MyViewHolder> {
 
     private final RecyclerViewClickListener listener;
 
-    public PetsAdapter(@NonNull FirebaseRecyclerOptions<Pet> options, RecyclerViewClickListener listener) {
-        super(options);
+    private final ArrayList<Map<String, String>> list;
+
+    public VetPetsAdapter(ArrayList<Map<String, String>> list, RecyclerViewClickListener listener) {
+        this.list = list;
         this.listener = listener;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Pet model) {
-        Picasso.with(holder.img.getContext()).load(model.getUrl()).into(holder.img);
-        holder.name.setText(model.getName());
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Picasso.with(holder.img.getContext()).load(list.get(position).get("url")).into(holder.img);
+        holder.name.setText(list.get(position).get("name"));
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item, parent, false), listener);
+        View view;
+
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item, parent, false);
+
+        return new MyViewHolder(view, listener);
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

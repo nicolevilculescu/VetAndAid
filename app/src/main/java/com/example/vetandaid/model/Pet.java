@@ -8,9 +8,7 @@ public class Pet {
     private String url;
     private String ownerId;
 
-    public Pet() {
-
-    }
+    public Pet() {}
 
     public Pet(String species, String breed, String name, String birthdate, String url, String ownerId) {
         this.species = species;

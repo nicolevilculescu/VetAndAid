@@ -23,7 +23,7 @@ public class VetScheduleAdapter extends RecyclerView.Adapter<VetScheduleAdapter.
 
     private final RecyclerViewClickListener listener;
 
-    private ArrayList<Map<String, String>> list;
+    private final ArrayList<Map<String, String>> list;
 
     public VetScheduleAdapter(ArrayList<Map<String, String>> list, RecyclerViewClickListener listener) {
         this.list = list;
@@ -84,8 +84,9 @@ public class VetScheduleAdapter extends RecyclerView.Adapter<VetScheduleAdapter.
         return list.size();
     }
 
-    public void filterList(ArrayList<Map<String, String>> filteredList) {
-        list = filteredList;
+    public void setFilter(ArrayList<Map<String, String>> filteredList) {
+        list.clear();
+        list.addAll(filteredList);
         notifyDataSetChanged();
     }
 

@@ -1,17 +1,17 @@
 package com.example.vetandaid.Log_Sign;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TimePicker;
+import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.vetandaid.R;
 import com.example.vetandaid.RegistrationFragments.VetFragment;
@@ -27,10 +27,11 @@ public class VetFirstSign extends AppCompatActivity implements TimePickerFragmen
 
     private DatabaseReference reference;
 
-    //private EditText weekOpen, weekClose, satOpen, satClose, sunOpen, sunClose;
     private Button weekOpen, weekClose, satOpen, satClose, sunOpen, sunClose;
+    private TextView line;
+    private CheckBox checkBox;
 
-    String id, time;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,33 +48,38 @@ public class VetFirstSign extends AppCompatActivity implements TimePickerFragmen
         sunOpen = findViewById(R.id.buttonTime5);
         sunClose = findViewById(R.id.buttonTime6);
 
+        checkBox = findViewById(R.id.checkBox);
+        line = findViewById(R.id.line4);
+
         FloatingActionButton done = findViewById(R.id.done);
 
         reference = FirebaseDatabase.getInstance().getReference().child("Users").child(id);
 
-        weekOpen.setOnClickListener(v -> {
-            clickHours(weekOpen);
+        weekOpen.setOnClickListener(v -> clickHours(weekOpen));
+
+        weekClose.setOnClickListener(v -> clickHours(weekClose));
+
+        satOpen.setOnClickListener(v -> clickHours(satOpen));
+
+        satClose.setOnClickListener(v -> clickHours(satClose));
+
+        checkBox.setOnClickListener(v -> {
+            if (checkBox.isChecked()) {
+                sunOpen.setVisibility(View.VISIBLE);
+                sunClose.setVisibility(View.VISIBLE);
+                line.setVisibility(View.VISIBLE);
+            } else {
+                sunOpen.setVisibility(View.INVISIBLE);
+                sunClose.setVisibility(View.INVISIBLE);
+                line.setVisibility(View.INVISIBLE);
+                sunOpen.setText("-");
+                sunClose.setText("-");
+            }
         });
 
-        weekClose.setOnClickListener(v -> {
-            clickHours(weekClose);
-        });
+        sunOpen.setOnClickListener(v -> clickHours(sunOpen));
 
-        satOpen.setOnClickListener(v -> {
-            clickHours(satOpen);
-        });
-
-        satClose.setOnClickListener(v -> {
-            clickHours(satClose);
-        });
-
-        sunOpen.setOnClickListener(v -> {
-            clickHours(sunOpen);
-        });
-
-        sunClose.setOnClickListener(v -> {
-            clickHours(sunClose);
-        });
+        sunClose.setOnClickListener(v -> clickHours(sunClose));
 
         done.setOnClickListener(v -> {
             if (validate()) {

@@ -59,7 +59,23 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
         setInfo();
 
         schedule.setOnClickListener(v -> {
+            SharedPreferences setting = getSharedPreferences(Constants.PREFS_DATE, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = setting.edit();
+            editor.putString("date", "after");
+            editor.apply();
+
             openDialog();
+        });
+
+        Button chat = findViewById(R.id.chatButon);
+
+        chat.setOnClickListener(v -> {
+            SharedPreferences setting = getSharedPreferences(Constants.PREFS_CLINIC_ID, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = setting.edit();
+            editor.putString("id", id);
+            editor.apply();
+
+            startActivity(new Intent(ClinicActivity.this, MessageActivity.class));
         });
 
         mMapView = findViewById(R.id.mapView);
