@@ -19,11 +19,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.vetandaid.AddPet;
 import com.example.vetandaid.R;
-import com.example.vetandaid.model.MedicalHistory;
-import com.example.vetandaid.model.Pet;
 import com.example.vetandaid.model.User;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;

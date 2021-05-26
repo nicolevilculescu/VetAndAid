@@ -14,7 +14,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.vetandaid.Log_Sign.MainActivity;
-import com.example.vetandaid.ClientMenuFragments.ChatFragment;
+import com.example.vetandaid.ClientMenuFragments.Chat1Fragment;
 import com.example.vetandaid.ClientMenuFragments.ClinicsFragment;
 import com.example.vetandaid.ClientMenuFragments.ClientPetsFragment;
 import com.example.vetandaid.ClientMenuFragments.ClientScheduleFragment;
@@ -102,7 +102,7 @@ public class ClientProfile extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.nav_chat:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ChatFragment()).commit();
+                        new Chat1Fragment()).commit();
                 break;
             case R.id.nav_clinics:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

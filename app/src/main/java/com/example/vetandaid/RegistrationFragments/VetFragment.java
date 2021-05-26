@@ -22,7 +22,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.vetandaid.Log_Sign.VetFirstSign;
-import com.example.vetandaid.MainActivity2;
 import com.example.vetandaid.R;
 import com.example.vetandaid.model.Vet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-
 
 public class VetFragment extends Fragment {
 
@@ -75,10 +73,8 @@ public class VetFragment extends Fragment {
 
         info = v.findViewById(R.id.infoIcon);
 
-        info.setOnClickListener(v1 -> {
-            Snackbar.make(v1, "Trade Register registration number of the type: J40/8118/2002", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        });
+        info.setOnClickListener(v1 -> Snackbar.make(v1, "Trade Register registration number of the type: J40/8118/2002", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
 
         FloatingActionButton next = v.findViewById(R.id.next);
 

@@ -71,7 +71,7 @@ public class ClientScheduleFragment extends Fragment implements ClientScheduleAd
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                     try {
                         Date date ;
-                        date = (Date)sdf.parse(Objects.requireNonNull(dataSnapshot.child("date").getValue()).toString().trim());
+                        date = sdf.parse(Objects.requireNonNull(dataSnapshot.child("date").getValue()).toString().trim());
                         assert date != null;
                         cal.setTime(date);
                     } catch (ParseException e) {
@@ -127,8 +127,8 @@ public class ClientScheduleFragment extends Fragment implements ClientScheduleAd
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = 0; j < list.size() - i - 1; j++) {
                 Date date1, date2 ;
-                date1 = (Date)sdf.parse(Objects.requireNonNull(list.get(j).get("date")));
-                date2 = (Date)sdf.parse(Objects.requireNonNull(list.get(j + 1).get("date")));
+                date1 = sdf.parse(Objects.requireNonNull(list.get(j).get("date")));
+                date2 = sdf.parse(Objects.requireNonNull(list.get(j + 1).get("date")));
                 assert date1 != null;
                 if (date1.compareTo(date2) > 0) {
                     Map<String, String> map = list.get(j);

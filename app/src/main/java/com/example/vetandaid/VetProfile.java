@@ -13,9 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.vetandaid.ClientMenuFragments.ChatFragment;
-import com.example.vetandaid.ClientMenuFragments.ClientPetsFragment;
 import com.example.vetandaid.Log_Sign.MainActivity;
+import com.example.vetandaid.VetMenuFragments.Chat2Fragment;
 import com.example.vetandaid.VetMenuFragments.VetPetsFragment;
 import com.example.vetandaid.VetMenuFragments.VetScheduleFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -105,7 +104,7 @@ public class VetProfile extends AppCompatActivity  implements NavigationView.OnN
                 break;
             case R.id.nav_chat2:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,
-                        new ChatFragment()).commit();
+                        new Chat2Fragment()).commit();
                 break;
             case R.id.nav_logout2:
                 //logging out

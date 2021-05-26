@@ -1,6 +1,5 @@
 package com.example.vetandaid.RegistrationFragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.TransitionManager;
@@ -17,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.vetandaid.MainActivity2;
 import com.example.vetandaid.R;
 import com.example.vetandaid.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -124,7 +122,7 @@ public class OtherFragment extends Fragment {
                         if (task1.isSuccessful()) {
                             Toast.makeText(getActivity(), "Account created!", Toast.LENGTH_SHORT).show();
                             endLoading();
-                            startActivity(new Intent(getActivity(), MainActivity2.class));
+                            //startActivity(new Intent(getActivity(), MainActivity2.class));
                         } else {
                             Toast.makeText(getActivity(), "Failed to register! Try again!", Toast.LENGTH_SHORT).show();
                             endLoading();

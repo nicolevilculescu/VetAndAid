@@ -1,15 +1,13 @@
 package com.example.vetandaid;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.example.vetandaid.ClientMenuFragments.ClientPetsFragment;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,8 +16,6 @@ import java.util.Objects;
 public class MedicalHistoryActivity extends AppCompatActivity {
 
     private TextView problem, description, date, treatment;
-
-    private DatabaseReference reference;
 
     String id1, id2;
 
@@ -39,7 +35,7 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         date = findViewById(R.id.dateTextView);
         treatment = findViewById(R.id.treatmentTextView);
 
-        reference = FirebaseDatabase.getInstance().getReference().child("MedicalHistory").child(id1).child(id2);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("MedicalHistory").child(id1).child(id2);
         reference.get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());

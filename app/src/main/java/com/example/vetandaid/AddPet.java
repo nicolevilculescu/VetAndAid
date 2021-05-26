@@ -228,7 +228,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
                 bName.setText(category);
             }
             if (resultCode == RESULT_CANCELED) {
-                bName.setText("Nothing selected");
+                bName.setText(getString(R.string.nothing_selected));
             }
         }
     }

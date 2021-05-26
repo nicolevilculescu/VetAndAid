@@ -45,6 +45,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new OtherFragment();
                 break;
         }
+        assert fragment != null;
         return fragment;
     }
 
