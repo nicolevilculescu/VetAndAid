@@ -1,15 +1,19 @@
 package com.example.vetandaid;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,10 +24,13 @@ import com.example.vetandaid.RecyclerViews.Breeds;
 import com.example.vetandaid.RecyclerViews.MedicalAdapter;
 import com.example.vetandaid.model.MedicalHistory;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalDate;
@@ -37,11 +44,14 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
     public static final String PREFS_MEDICAL_ID = "MedicalIdPrefsFile";
 
     private DatabaseReference reference;
+    private StorageReference storageReference;
 
-    private TextView name, age, breed;
+    private TextView name, age, breed, editPic;
     private CircleImageView img;
     private EditText editName, editAge;
-    private Button schedule, delete;
+    private Button delete;
+
+    private Uri imageUri;
 
     private TabHost tabHost;
     private MedicalAdapter adapter;
@@ -69,7 +79,6 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
         breed = findViewById(R.id.breedTextView);
 
         edit = findViewById(R.id.editInfo);
-        schedule = findViewById(R.id.schedulePet);
         delete = findViewById(R.id.deletePet);
         done = findViewById(R.id.doneButton);
 
@@ -85,6 +94,8 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
 
         tabHost = findViewById(R.id.tabHost);
         tabHost.setup();
+
+        storageReference = FirebaseStorage.getInstance().getReference("Pets");
 
         reference = FirebaseDatabase.getInstance().getReference().child("Pets").child(id1);
         reference.get().addOnCompleteListener(task -> {
@@ -111,7 +122,6 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
 
         //Edit info of a pet
         edit.setOnClickListener(v -> {
-            schedule.setVisibility(View.INVISIBLE);
             delete.setVisibility(View.INVISIBLE);
             edit.setVisibility(View.INVISIBLE);
             name.setVisibility(View.INVISIBLE);
@@ -120,9 +130,11 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
             editName = findViewById(R.id.nameEditText);
             editAge = findViewById(R.id.ageEditText);
             breedButton = findViewById(R.id.breedButton);
+            editPic = findViewById(R.id.editPicture);
 
             editName.setVisibility(View.VISIBLE);
             editAge.setVisibility(View.VISIBLE);
+            editPic.setVisibility(View.VISIBLE);
             breedButton.setVisibility(View.VISIBLE);
             done.setVisibility(View.VISIBLE);
 
@@ -135,12 +147,17 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
                 intent.putExtra(EXTRA_INFO, "1");
                 startActivityForResult(intent, 1);
             });
+
+            editPic.setOnClickListener(v1 -> {
+                openFileChooser();
+            });
         });
 
         //Updating info of a pet
         done.setOnClickListener(v -> {
             editName.setVisibility(View.INVISIBLE);
             editAge.setVisibility(View.INVISIBLE);
+            editPic.setVisibility(View.INVISIBLE);
             breedButton.setVisibility(View.INVISIBLE);
             done.setVisibility(View.INVISIBLE);
 
@@ -154,7 +171,8 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
                 reference.child("birthdate").setValue(birthdate);
             }
 
-            schedule.setVisibility(View.VISIBLE);
+            updatePic();
+
             delete.setVisibility(View.VISIBLE);
             edit.setVisibility(View.VISIBLE);
             name.setVisibility(View.VISIBLE);
@@ -168,15 +186,6 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
 
             FirebaseDatabase.getInstance().getReference().child("MedicalHistory").child(id1).removeValue();
         });
-
-        /*schedule.setOnClickListener(v -> {
-            SharedPreferences setting = getSharedPreferences(Constants.CLINICS, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = setting.edit();
-            editor.putString("from", "PetProfile");
-            editor.apply();
-
-            startActivity(new Intent(PetProfile.this, ClientProfile.class));
-        });*/
 
         FloatingActionButton add = findViewById(R.id.addNew2);
         add.setOnClickListener(v1 -> startActivity(new Intent(PetProfile.this, AddMedicalHistory.class)));
@@ -198,6 +207,35 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
 
         adapter = new MedicalAdapter(options, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, Constants.PICK_IMAGE_REQUEST);
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void updatePic() {
+        if (imageUri != null) {
+            StorageReference fileReference = storageReference.child(System.currentTimeMillis()
+                    + "." + getFileExtension(imageUri));
+            fileReference.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                        while ((!uri.isComplete()));
+                        Uri url = uri.getResult();
+                        assert url != null;
+                        reference.child("url").setValue(url.toString());
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(PetProfile.this, e.getMessage(), Toast.LENGTH_LONG).show());
+        }
     }
 
     @Override
@@ -266,7 +304,13 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK) {
+        if (requestCode == Constants.PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            imageUri = data.getData();
+
+            Picasso.with(this).load(imageUri).into(img);
+
+        } else if (requestCode == 1 && resultCode == RESULT_OK) {
             assert data != null;
             String category = data.getStringExtra("result");
             breed.setKeyListener(null);

@@ -1,19 +1,27 @@
 package com.example.vetandaid;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.vetandaid.ClientMenuFragments.ClinicsFragment;
 import com.example.vetandaid.RecyclerViews.ScheduleRecView;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,8 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallback, DatePickerDialog.OnDateSetListener {
@@ -38,8 +48,11 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
     private MapView mMapView;
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
 
-    String id;
+    private GoogleMap mMap;
+
+    String id, address;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,8 +100,7 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
         reference.get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
-            }
-            else {
+            } else {
                 clinicName.setText(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("clinic_name").getValue()).toString().trim());
 
                 docName.setText(getString(R.string.fullName,
@@ -144,10 +156,72 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
         mMapView.onStop();
     }
 
-    @Override
-    public void onMapReady(GoogleMap map) {
-        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+    public LatLng getLocationFromAddress(String address) {
+        Geocoder coder = new Geocoder(this);
+        List<Address> addressList;
+        LatLng p1 = null;
+
+        try {
+            addressList = coder.getFromLocationName(address, 5);
+            if (addressList == null) {
+                return null;
+            }
+
+            Address location = addressList.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
+
+    @Override
+    public void onMapReady(@NotNull GoogleMap map) {
+        reference.get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e("firebase", "Error getting data", task.getException());
+            } else {
+                address = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("address").getValue()).toString().trim();
+
+                mMap = map;
+
+                LatLng latLng = getLocationFromAddress(address);
+                mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+
+                enableMyLocation();
+            }
+        });
+    }
+
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]
+                            {Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        // Check if location permissions are granted and if so enable the
+        // location data layer.
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (grantResults.length > 0
+                    && grantResults[0]
+                    == PackageManager.PERMISSION_GRANTED) {
+                enableMyLocation();
+            }
+        }
+    }
+
 
     @Override
     public void onPause() {

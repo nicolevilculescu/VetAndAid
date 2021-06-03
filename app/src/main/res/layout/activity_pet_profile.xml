@@ -20,6 +20,18 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/editPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="9dp"
+        android:text="Edit picture..."
+        android:textColor="@android:color/holo_blue_dark"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+    <TextView
         android:id="@+id/nameOption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -160,19 +172,6 @@
         android:text="Delete pet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/breedButton" />
-
-    <Button
-        android:id="@+id/schedulePet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="45dp"
-        android:text="Make appointment"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/deletePet"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/breedOption" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/doneButton"

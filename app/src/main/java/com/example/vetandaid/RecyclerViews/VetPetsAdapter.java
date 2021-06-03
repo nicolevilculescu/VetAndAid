@@ -47,6 +47,12 @@ public class VetPetsAdapter extends RecyclerView.Adapter<VetPetsAdapter.MyViewHo
         return list.size();
     }
 
+    public void setFilter(ArrayList<Map<String, String>> filteredList) {
+        list.clear();
+        list.addAll(filteredList);
+        notifyDataSetChanged();
+    }
+
     static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView img;
         TextView name;

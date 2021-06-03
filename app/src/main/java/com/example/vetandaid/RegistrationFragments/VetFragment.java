@@ -40,7 +40,7 @@ public class VetFragment extends Fragment {
     private ViewGroup Cont;
     private Button Sign;
     private TextView Data1, Data2;
-    private ImageView info;
+    private ImageView info1, info2;
     private FirebaseAuth fAuth;
 
     public static final String PREFS_VET_ID = "VetIdPrefsFile";
@@ -71,9 +71,14 @@ public class VetFragment extends Fragment {
 
         fAuth = FirebaseAuth.getInstance();
 
-        info = v.findViewById(R.id.infoIcon);
+        info1 = v.findViewById(R.id.infoIcon);
 
-        info.setOnClickListener(v1 -> Snackbar.make(v1, "Trade Register registration number of the type: J40/8118/2002", Snackbar.LENGTH_LONG)
+        info1.setOnClickListener(v1 -> Snackbar.make(v1, "Trade Register registration number of the type: J40/8118/2002", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
+
+        info2 = v.findViewById(R.id.infoIcon2);
+
+        info2.setOnClickListener(v1 -> Snackbar.make(v1, "Address must look like: Street Name Number, City, Country", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
 
         FloatingActionButton next = v.findViewById(R.id.next);
@@ -90,7 +95,8 @@ public class VetFragment extends Fragment {
                 Phone.setVisibility(View.GONE);
                 Address.setVisibility(View.GONE);
                 next.setVisibility(View.GONE);
-                info.setVisibility(View.GONE);
+                info1.setVisibility(View.GONE);
+                info2.setVisibility(View.GONE);
 
                 Data2.setVisibility(View.VISIBLE);
                 Email.setVisibility(View.VISIBLE);

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vetandaid.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,12 +18,12 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.MyViewHolder
 
     private final RecyclerViewClickListener listener;
 
-    private final List<Map<String, String>> vetList;
+    private final List<Map<String, String>> list;
 
     private final int accType;
 
-    public ChatsAdapter(List<Map<String, String>> vetList, RecyclerViewClickListener listener, int accType) {
-        this.vetList = vetList;
+    public ChatsAdapter(List<Map<String, String>> list, RecyclerViewClickListener listener, int accType) {
+        this.list = list;
         this.listener = listener;
         this.accType = accType;
     }
@@ -36,10 +37,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.name1.setText(holder.itemView.getContext().getString(R.string.fullName, vetList.get(position).get("firstName"),
-                vetList.get(position).get("lastName")));
+        holder.name1.setText(holder.itemView.getContext().getString(R.string.fullName, list.get(position).get("firstName"),
+                list.get(position).get("lastName")));
         if (accType == 0) {
-            holder.name2.setText(holder.itemView.getContext().getString(R.string.clinic, vetList.get(position).get("clinic_name")));
+            holder.name2.setText(holder.itemView.getContext().getString(R.string.clinic, list.get(position).get("clinic_name")));
         } else {
             holder.name2.setText("");
         }
@@ -47,7 +48,13 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return vetList.size();
+        return list.size();
+    }
+
+    public void setFilter(List<Map<String, String>> filteredList) {
+        list.clear();
+        list.addAll(filteredList);
+        notifyDataSetChanged();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

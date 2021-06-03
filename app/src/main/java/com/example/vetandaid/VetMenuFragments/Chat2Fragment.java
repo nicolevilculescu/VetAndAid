@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,8 +36,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class Chat2Fragment extends Fragment implements ChatsAdapter.RecyclerViewClickListener{
+public class Chat2Fragment extends Fragment implements ChatsAdapter.RecyclerViewClickListener, SearchView.OnQueryTextListener,
+        MenuItem.OnActionExpandListener {
 
     private ChatsAdapter adapter;
     private List<Map<String, String>> clientList;
@@ -79,6 +85,8 @@ public class Chat2Fragment extends Fragment implements ChatsAdapter.RecyclerView
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {}
         });
+
+        setHasOptionsMenu(true);
 
         return view;
     }
@@ -128,5 +136,53 @@ public class Chat2Fragment extends Fragment implements ChatsAdapter.RecyclerView
         editor.apply();
 
         startActivity(new Intent(getActivity(), MessageActivity.class));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NotNull Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.search_menu, menu);
+        // Associate searchable configuration with the SearchView
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        adapter.setFilter(clientList);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (newText == null || newText.trim().isEmpty()) {
+            ArrayList<Map<String, String>> filteredList = new ArrayList<>(clientList);
+            adapter.setFilter(filteredList);
+            return false;
+        }
+        newText = newText.toLowerCase();
+        final ArrayList<Map<String, String>> filteredList = new ArrayList<>();
+        for (Map<String, String> item : clientList) {
+            if (Objects.requireNonNull(item.get("firstName")).toLowerCase().contains(newText.toLowerCase()) ||
+                    Objects.requireNonNull(item.get("lastName")).toLowerCase().contains(newText.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        adapter.setFilter(filteredList);
+        return true;
     }
 }

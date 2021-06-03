@@ -35,8 +35,6 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
     public static final String EXTRA_CATEGORY = "extraCategory";
     public static final String EXTRA_INFO = "extraInfo";
 
-    private static final int PICK_IMAGE_REQUEST = 2;
-
     private String s;
 
     private Button breed, choose;
@@ -169,7 +167,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        startActivityForResult(intent, Constants.PICK_IMAGE_REQUEST);
     }
 
     private String getFileExtension(Uri uri) {
@@ -208,7 +206,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+        if (requestCode == Constants.PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             imageUri = data.getData();
 

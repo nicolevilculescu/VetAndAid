@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -100,6 +104,8 @@ public class VetPetsFragment extends Fragment implements VetPetsAdapter.Recycler
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
+        setHasOptionsMenu(true);
+
         return v;
     }
 
@@ -121,22 +127,49 @@ public class VetPetsFragment extends Fragment implements VetPetsAdapter.Recycler
     }
 
     @Override
+    public void onCreateOptionsMenu(@NotNull Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.search_menu, menu);
+        // Associate searchable configuration with the SearchView
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public boolean onMenuItemActionExpand(MenuItem item) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean onMenuItemActionCollapse(MenuItem item) {
-        return false;
+        adapter.setFilter(list);
+        return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        return false;
+        if (newText == null || newText.trim().isEmpty()) {
+            ArrayList<Map<String, String>> filteredList = new ArrayList<>(list);
+            adapter.setFilter(filteredList);
+            return false;
+        }
+        newText = newText.toLowerCase();
+        final ArrayList<Map<String, String>> filteredList = new ArrayList<>();
+        for (Map<String, String> item : list) {
+            if (Objects.requireNonNull(item.get("name")).toLowerCase().contains(newText.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        adapter.setFilter(filteredList);
+        return true;
     }
 }
