@@ -162,7 +162,7 @@
         android:contentDescription="Address must look like: Street Name Number, City, Country"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/address"
-        app:layout_constraintTop_toBottomOf="@+id/infoIconBrirth"
+        app:layout_constraintTop_toBottomOf="@+id/infoIconRegNb"
         app:srcCompat="@drawable/info" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
