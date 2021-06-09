@@ -63,6 +63,14 @@ public class VetFirstSign extends AppCompatActivity implements TimePickerFragmen
 
         satClose.setOnClickListener(v -> clickHours(satClose));
 
+        if (!checkBox.isChecked()) {
+            sunOpen.setVisibility(View.INVISIBLE);
+            sunClose.setVisibility(View.INVISIBLE);
+            line.setVisibility(View.INVISIBLE);
+            sunOpen.setText("-");
+            sunClose.setText("-");
+        }
+
         checkBox.setOnClickListener(v -> {
             if (checkBox.isChecked()) {
                 sunOpen.setVisibility(View.VISIBLE);

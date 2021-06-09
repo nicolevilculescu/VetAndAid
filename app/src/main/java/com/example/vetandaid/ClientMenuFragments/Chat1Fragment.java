@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +44,8 @@ public class Chat1Fragment extends Fragment implements ChatsAdapter.RecyclerView
 
     private RecyclerView recyclerView;
 
+    private TextView noChat;
+
     String id;
 
     Chat1Fragment ceva;
@@ -57,6 +60,8 @@ public class Chat1Fragment extends Fragment implements ChatsAdapter.RecyclerView
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        noChat = view.findViewById(R.id.noChats);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -105,6 +110,17 @@ public class Chat1Fragment extends Fragment implements ChatsAdapter.RecyclerView
                         }
                     }
                 }
+
+                if (chatList.size() != 0) {
+                    noChat.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    noChat.setVisibility(View.VISIBLE);
+
+                    noChat.setText(getString(R.string.chatMessage1));
+                }
+
                 adapter = new ChatsAdapter(vetList, ceva, 0);
                 recyclerView.setAdapter(adapter);
             }

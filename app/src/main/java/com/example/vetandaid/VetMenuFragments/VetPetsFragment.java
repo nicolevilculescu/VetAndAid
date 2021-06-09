@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,6 +46,8 @@ public class VetPetsFragment extends Fragment implements VetPetsAdapter.Recycler
 
     private VetPetsAdapter adapter;
 
+    private TextView no;
+
     private ArrayList<String> idList;
     private ArrayList<Map<String, String>> list;
 
@@ -57,6 +60,8 @@ public class VetPetsFragment extends Fragment implements VetPetsAdapter.Recycler
 
         recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        no = v.findViewById(R.id.noChats);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -92,6 +97,17 @@ public class VetPetsFragment extends Fragment implements VetPetsAdapter.Recycler
                                 }
                             }
                         }
+
+                        if (list.size() != 0) {
+                            no.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
+                        } else {
+                            recyclerView.setVisibility(View.GONE);
+                            no.setVisibility(View.VISIBLE);
+
+                            no.setText(getString(R.string.noPets));
+                        }
+
                         adapter = new VetPetsAdapter(list, ceva);
 
                         recyclerView.setAdapter(adapter);

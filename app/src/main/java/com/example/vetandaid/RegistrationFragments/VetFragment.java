@@ -25,7 +25,6 @@ import com.example.vetandaid.Log_Sign.VetFirstSign;
 import com.example.vetandaid.R;
 import com.example.vetandaid.model.Vet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -71,15 +70,16 @@ public class VetFragment extends Fragment {
 
         fAuth = FirebaseAuth.getInstance();
 
-        info1 = v.findViewById(R.id.infoIcon);
+        info1 = v.findViewById(R.id.infoIconRegNb);
 
-        info1.setOnClickListener(v1 -> Snackbar.make(v1, "Trade Register registration number of the type: J40/8118/2002", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+
+
+        info1.setOnClickListener(v1 -> Toast.makeText(getActivity(), "Trade Register registration number of the type: J40/8118/2002", Toast.LENGTH_LONG)
+                .show());
 
         info2 = v.findViewById(R.id.infoIcon2);
 
-        info2.setOnClickListener(v1 -> Snackbar.make(v1, "Address must look like: Street Name Number, City, Country", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        info2.setOnClickListener(v1 -> Toast.makeText(getActivity(), "Address must look like: Street Name Number, City, Country", Toast.LENGTH_LONG).show());
 
         FloatingActionButton next = v.findViewById(R.id.next);
 

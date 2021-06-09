@@ -50,7 +50,7 @@ public class ScheduleRecView extends AppCompatActivity implements ScheduleAdapte
 
         Calendar calendar = Calendar.getInstance();
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM dd, yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.ENGLISH);
         try {
             calendar.setTime(Objects.requireNonNull(sdf.parse(day)));
             date = sdf.parse(day);

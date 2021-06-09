@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +40,8 @@ public class ClientScheduleFragment extends Fragment implements ClientScheduleAd
 
     private ArrayList<Map<String, String>> list;
 
+    private TextView no;
+
     View v;
     SimpleDateFormat sdf;
 
@@ -51,6 +54,8 @@ public class ClientScheduleFragment extends Fragment implements ClientScheduleAd
 
         recyclerView = v.findViewById(R.id.recyclerView2);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        no = v.findViewById(R.id.noAppointments);
 
         list = new ArrayList<>();
 
@@ -87,6 +92,16 @@ public class ClientScheduleFragment extends Fragment implements ClientScheduleAd
                     sort(list);
                 } catch (ParseException e) {
                     e.printStackTrace();
+                }
+
+                if (list.size() != 0) {
+                    no.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    no.setVisibility(View.VISIBLE);
+
+                    no.setText(getString(R.string.noAppointments2));
                 }
 
                 adapter = new ClientScheduleAdapter(list, ceva);

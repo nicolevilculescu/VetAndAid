@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,6 +54,8 @@ public class VetScheduleFragment extends Fragment implements VetScheduleAdapter.
 
     private VetScheduleAdapter adapter;
 
+    private TextView no;
+
     VetScheduleFragment ceva;
 
     @Nullable
@@ -62,6 +65,8 @@ public class VetScheduleFragment extends Fragment implements VetScheduleAdapter.
 
         recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        no = v.findViewById(R.id.noChats);
 
         list = new ArrayList<>();
 
@@ -98,6 +103,16 @@ public class VetScheduleFragment extends Fragment implements VetScheduleAdapter.
                     sort(list);
                 } catch (ParseException e) {
                     e.printStackTrace();
+                }
+
+                if (list.size() != 0) {
+                    no.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    no.setVisibility(View.VISIBLE);
+
+                    no.setText(getString(R.string.noAppointments));
                 }
 
                 adapter = new VetScheduleAdapter(list, ceva);

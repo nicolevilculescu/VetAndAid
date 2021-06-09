@@ -110,7 +110,12 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
 
                 birthdate = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("birthdate").getValue()).toString().trim();
 
-                age.setText(String.valueOf(calculateAge(birthdate)));
+                if (!birthdate.equals("-")) {
+                    age.setText(String.valueOf(calculateAge(birthdate)));
+                } else {
+                    age.setText(getString(R.string.unknown));
+                }
+
                 breed.setText(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("breed").getValue()).toString().trim());
 
                 species = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("species").getValue()).toString().trim();

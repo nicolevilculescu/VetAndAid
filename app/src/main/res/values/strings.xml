@@ -24,7 +24,19 @@
     <string name="species">Species:</string>
     <string name="breed">Breed:</string>
     <string name="name">Name:</string>
+    <string name="age">Age:</string>
+    <string name="editPic">Edit picture…</string>
     <string name="birthdate">Birthdate:</string>
+    <string name="unknown">Unknown</string>
+    <string name="newPet">Add a new pet:</string>
+    <string name="newMedHist">Add medical history:</string>
+    <string name="description">Description:</string>
+    <string name="treat">Treatment:</string>
+    <string name="chatMessage1">No chats yet. Go to the Clinics section and start a conversation!</string>
+    <string name="chatMessage2">No chats yet. Wait for a client to start a conversation!</string>
+    <string name="noAppointments">No appointments yet. Wait for a client to make one!</string>
+    <string name="noAppointments2">No appointments yet. Go to the Clinics section to make one!</string>
+    <string name="noPets">No pets treated yet. Wait for a client to make an appointment!</string>
     <string name="pet_picture">Pet picture:</string>
     <string name="choose_breed">Choose breed</string>
     <string name="select_file">Select file</string>
@@ -38,6 +50,7 @@
     <string name="date_time">%1$s, %2$s</string>
     <string name="clinic">Clinic: %1$s</string>
     <string name="pet">Pet: %1$s</string>
+    <string name="info">info</string>
 
     <string-array name="species">
         <item>Choose…</item>

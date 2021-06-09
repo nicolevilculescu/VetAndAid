@@ -39,7 +39,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
     private Button breed, choose;
     private FloatingActionButton next, again;
-    private ImageView pic;
+    private ImageView pic, info;
     private TextView b, another;
     private EditText name, birth, bName;
 
@@ -62,6 +62,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
         name = findViewById(R.id.name);
         birth = findViewById(R.id.date);
+        info = findViewById(R.id.infoIconBrirth);
         bName = findViewById(R.id.breedName);
         bName.setKeyListener(null);
 
@@ -84,6 +85,9 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter);
         spinner1.setOnItemSelectedListener(this);
+
+        info.setOnClickListener(v1 -> Toast.makeText(AddPet.this, "Birthdate must look like: dd.mm.yyyy. It can also be left empty.",
+                Toast.LENGTH_LONG).show());
 
         choose.setOnClickListener(v -> openFileChooser());
 
