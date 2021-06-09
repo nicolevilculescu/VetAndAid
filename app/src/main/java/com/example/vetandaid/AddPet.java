@@ -39,7 +39,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
     private Button breed, choose;
     private FloatingActionButton next, again;
-    private ImageView pic, info;
+    private ImageView pic;
     private TextView b, another;
     private EditText name, birth, bName;
 
@@ -62,7 +62,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
         name = findViewById(R.id.name);
         birth = findViewById(R.id.date);
-        info = findViewById(R.id.infoIconBrirth);
+        ImageView info = findViewById(R.id.infoIconBrirth);
         bName = findViewById(R.id.breedName);
         bName.setKeyListener(null);
 
