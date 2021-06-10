@@ -32,7 +32,7 @@ public class ClinicsAdapter extends FirebaseRecyclerAdapter<Vet, ClinicsAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.clinic_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.three_field_item, parent, false);
         return new MyViewHolder(view, listener);
     }
 
@@ -42,9 +42,9 @@ public class ClinicsAdapter extends FirebaseRecyclerAdapter<Vet, ClinicsAdapter.
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
             super(itemView);
-            clinicName = itemView.findViewById(R.id.clinicName);
-            name = itemView.findViewById(R.id.doctorName);
-            phone = itemView.findViewById(R.id.phoneNumber);
+            clinicName = itemView.findViewById(R.id.field1);
+            name = itemView.findViewById(R.id.field2);
+            phone = itemView.findViewById(R.id.field3);
             this.recyclerViewClickListener = recyclerViewClickListener;
 
             itemView.setOnClickListener(this);
