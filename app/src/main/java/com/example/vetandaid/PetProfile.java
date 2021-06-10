@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.vetandaid.Log_Sign.VetFirstSign;
 import com.example.vetandaid.RecyclerViews.Breeds;
 import com.example.vetandaid.RecyclerViews.MedicalAdapter;
 import com.example.vetandaid.model.MedicalHistory;
@@ -137,10 +138,15 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
             breedButton = findViewById(R.id.breedButton);
             editPic = findViewById(R.id.editPicture);
 
+            if (breed.getText().toString().trim().equals("-")) {
+                breedButton.setVisibility(View.INVISIBLE);
+            } else {
+                breedButton.setVisibility(View.VISIBLE);
+            }
+
             editName.setVisibility(View.VISIBLE);
             editAge.setVisibility(View.VISIBLE);
             editPic.setVisibility(View.VISIBLE);
-            breedButton.setVisibility(View.VISIBLE);
             done.setVisibility(View.VISIBLE);
 
             editName.setText(name.getText().toString().trim());
@@ -170,10 +176,12 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
                 name.setText(editName.getText().toString().trim());
                 reference.child("name").setValue(name.getText().toString().trim());
             }
-            if (!age.getText().toString().trim().equals(String.valueOf(calculateAge(editAge.getText().toString().trim())))) {
-                birthdate = editAge.getText().toString().trim();
-                age.setText(String.valueOf(calculateAge(birthdate)));
-                reference.child("birthdate").setValue(birthdate);
+            if (!editAge.getText().toString().trim().equals("-")) {
+                if (!age.getText().toString().trim().equals(String.valueOf(calculateAge(editAge.getText().toString().trim())))) {
+                    birthdate = editAge.getText().toString().trim();
+                    age.setText(String.valueOf(calculateAge(birthdate)));
+                    reference.child("birthdate").setValue(birthdate);
+                }
             }
 
             updatePic();
@@ -186,10 +194,49 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
 
         //Deleting a pet
         delete.setOnClickListener(v -> {
-            reference.removeValue();
-            startActivity(new Intent(PetProfile.this, ClientProfile.class));
+            reference.get().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    String id = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("ownerId").getValue()).toString().trim();
 
-            FirebaseDatabase.getInstance().getReference().child("MedicalHistory").child(id1).removeValue();
+                    FirebaseDatabase.getInstance().getReference().child("ClientSchedule").child(id).get().addOnCompleteListener(task1 -> {
+                        if (!task1.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task1.getException());
+                        } else {
+                            for (DataSnapshot dataSnapshot1 : Objects.requireNonNull(task1.getResult()).getChildren()) {
+                                if (Objects.requireNonNull(dataSnapshot1.child("petId").getValue()).toString().equals(id1)) {
+                                    FirebaseDatabase.getInstance().getReference().child("ClientSchedule").child(id)
+                                            .child(Objects.requireNonNull(dataSnapshot1.getKey())).removeValue();
+                                    break;
+                                }
+                            }
+                        }
+                    });
+
+                    FirebaseDatabase.getInstance().getReference().child("VetSchedule").get().addOnCompleteListener(task1 -> {
+                        if (!task1.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task1.getException());
+                        } else {
+                            for (DataSnapshot dataSnapshot1 : Objects.requireNonNull(task1.getResult()).getChildren()) {
+                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                    if (Objects.requireNonNull(dataSnapshot2.child("petId").getValue()).toString().equals(id1) &&
+                                            Objects.requireNonNull(dataSnapshot2.child("clientId").getValue()).toString().equals(id)) {
+                                        FirebaseDatabase.getInstance().getReference().child("VetSchedule")
+                                                .child(Objects.requireNonNull(dataSnapshot1.getKey()))
+                                                .child(Objects.requireNonNull(dataSnapshot2.getKey())).removeValue();
+                                    }
+                                }
+                            }
+                            reference.removeValue();
+                            startActivity(new Intent(PetProfile.this, ClientProfile.class));
+
+                            FirebaseDatabase.getInstance().getReference().child("MedicalHistory").child(id1).removeValue();
+                        }
+                    });
+                }
+            });
         });
 
         FloatingActionButton add = findViewById(R.id.addNew2);

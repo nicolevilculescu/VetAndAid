@@ -62,7 +62,7 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
 
         name = findViewById(R.id.name);
         birth = findViewById(R.id.date);
-        ImageView info = findViewById(R.id.infoIconBrirth);
+        ImageView info = findViewById(R.id.infoIconBirth);
         bName = findViewById(R.id.breedName);
         bName.setKeyListener(null);
 
@@ -181,6 +181,9 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
     }
 
     private void uploadInfo() {
+        if (birth.getText().length() == 0) {
+            birth.setText("-");
+        }
         if (imageUri == null) {
             Pet pet = new Pet(s, bName.getText().toString().trim(), name.getText().toString().trim(), birth.getText().toString().trim(),
                     "no photo", firebaseUser.getUid());

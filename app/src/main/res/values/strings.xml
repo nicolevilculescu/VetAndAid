@@ -51,6 +51,7 @@
     <string name="clinic">Clinic: %1$s</string>
     <string name="pet">Pet: %1$s</string>
     <string name="info">info</string>
+    <string name="delete">Delete</string>
 
     <string-array name="species">
         <item>Choose…</item>

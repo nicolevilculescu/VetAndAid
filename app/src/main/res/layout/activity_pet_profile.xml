@@ -81,7 +81,7 @@
         android:id="@+id/ageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="19dp"
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/ageOption"
@@ -127,7 +127,8 @@
         android:id="@+id/breedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
         android:backgroundTint="@color/purple_200"
         android:clickable="true"
         android:contentDescription="@string/button_for_next_page"
@@ -135,15 +136,13 @@
         app:backgroundTint="@color/purple_200"
         app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/breedTextView"
-        app:layout_constraintTop_toBottomOf="@+id/ageEditText"
+        app:layout_constraintTop_toBottomOf="@+id/breedTextView"
         app:srcCompat="@drawable/arrow" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/editInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
         android:layout_marginTop="55dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="100dp"
@@ -152,31 +151,32 @@
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@+id/tabHost"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ageTextView"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <Button
         android:id="@+id/deletePet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="12dp"
         android:text="Delete pet"
+        app:layout_constraintBottom_toTopOf="@+id/tabHost"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/breedButton" />
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/doneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="12dp"
         android:clickable="true"
         android:visibility="invisible"
         app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/tabHost"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/breedButton"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="?android:attr/textCheckMarkInverse" />
 
     <TabHost
@@ -223,8 +223,8 @@
                         android:layout_marginEnd="37dp"
                         android:layout_marginBottom="25dp"
                         android:clickable="true"
-                        app:srcCompat="@android:drawable/ic_input_add"
-                        android:contentDescription="@string/addbutton" />
+                        android:contentDescription="@string/addbutton"
+                        app:srcCompat="@android:drawable/ic_input_add" />
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
