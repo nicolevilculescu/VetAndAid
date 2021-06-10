@@ -50,6 +50,7 @@
     <string name="date_time">%1$s, %2$s</string>
     <string name="clinic">Clinic: %1$s</string>
     <string name="pet">Pet: %1$s</string>
+    <string name="address2">Address: %1$s</string>
     <string name="info">info</string>
     <string name="delete">Delete</string>
 

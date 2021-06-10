@@ -44,7 +44,7 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
 
     private DatabaseReference reference;
 
-    private TextView clinicName, docName;
+    private TextView clinicName, docName, addressView;
     private MapView mMapView;
 
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
@@ -64,6 +64,7 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
 
         clinicName = findViewById(R.id.clinicTextView);
         docName = findViewById(R.id.docNameTextView);
+        addressView = findViewById(R.id.addressTextView);
 
         Button schedule = findViewById(R.id.schedule);
 
@@ -106,6 +107,9 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
                 docName.setText(getString(R.string.fullName,
                         Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("firstName").getValue()).toString().trim(),
                         Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("lastName").getValue()).toString().trim()));
+
+                addressView.setText(getString(R.string.address2,
+                        Objects.requireNonNull(Objects.requireNonNull(task.getResult()).child("address").getValue()).toString().trim()));
             }
         });
     }
@@ -189,7 +193,7 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
 
                 LatLng latLng = getLocationFromAddress(address);
                 mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
                 enableMyLocation();
             }
