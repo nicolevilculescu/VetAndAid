@@ -26,6 +26,7 @@ public class ClinicsAdapter extends FirebaseRecyclerAdapter<Vet, ClinicsAdapter.
     protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Vet model) {
         holder.clinicName.setText(model.getClinic_name());
         holder.name.setText(holder.itemView.getContext().getString(R.string.fullName, model.getFirstName(), model.getLastName()));
+        holder.phone.setText(model.getPhone());
     }
 
     @NonNull
@@ -36,13 +37,14 @@ public class ClinicsAdapter extends FirebaseRecyclerAdapter<Vet, ClinicsAdapter.
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView clinicName, name;
+        TextView clinicName, name, phone;
         RecyclerViewClickListener recyclerViewClickListener;
 
         public MyViewHolder(@NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
             super(itemView);
             clinicName = itemView.findViewById(R.id.clinicName);
             name = itemView.findViewById(R.id.doctorName);
+            phone = itemView.findViewById(R.id.phoneNumber);
             this.recyclerViewClickListener = recyclerViewClickListener;
 
             itemView.setOnClickListener(this);
