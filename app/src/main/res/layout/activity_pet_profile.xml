@@ -102,6 +102,18 @@
         app:layout_constraintStart_toEndOf="@+id/ageOption"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
 
+    <ImageView
+        android:id="@+id/infoIconBirth2"
+        android:layout_width="28dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/info"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/ageEditText"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText"
+        app:srcCompat="@drawable/info" />
+
     <TextView
         android:id="@+id/breedOption"
         android:layout_width="wrap_content"

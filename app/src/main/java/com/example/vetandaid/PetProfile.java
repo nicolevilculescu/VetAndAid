@@ -11,6 +11,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,6 +69,8 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_profile);
+
+        ImageView info = findViewById(R.id.infoIconBirth2);
 
         SharedPreferences settings = getSharedPreferences(Constants.PREFS_PET_ID, Context.MODE_PRIVATE);
         id1 = settings.getString("id", "default");
@@ -148,9 +151,13 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
             editAge.setVisibility(View.VISIBLE);
             editPic.setVisibility(View.VISIBLE);
             done.setVisibility(View.VISIBLE);
+            info.setVisibility(View.VISIBLE);
 
             editName.setText(name.getText().toString().trim());
             editAge.setText(birthdate);
+
+            info.setOnClickListener(v1 -> Toast.makeText(PetProfile.this, "Birthdate must look like: dd.mm.yyyy. It can also be left empty.",
+                    Toast.LENGTH_LONG).show());
 
             breedButton.setOnClickListener(v1 -> {
                 Intent intent = new Intent(PetProfile.this, Breeds.class);
@@ -164,24 +171,39 @@ public class PetProfile extends AppCompatActivity implements MedicalAdapter.Recy
             });
         });
 
+
+
         //Updating info of a pet
         done.setOnClickListener(v -> {
             editName.setVisibility(View.INVISIBLE);
             editAge.setVisibility(View.INVISIBLE);
+            info.setVisibility(View.INVISIBLE);
             editPic.setVisibility(View.INVISIBLE);
             breedButton.setVisibility(View.INVISIBLE);
             done.setVisibility(View.INVISIBLE);
 
             if (!name.getText().toString().trim().equals(editName.getText().toString().trim())) {
-                name.setText(editName.getText().toString().trim());
-                reference.child("name").setValue(name.getText().toString().trim());
+                if (name.getText().toString().trim().length() != 0) {
+                    name.setText(editName.getText().toString().trim());
+                    reference.child("name").setValue(name.getText().toString().trim());
+                    Toast.makeText(this, "Data updated!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Name field is empty! Value not changed!", Toast.LENGTH_SHORT).show();
+                }
             }
-            if (!editAge.getText().toString().trim().equals("-")) {
+
+            if (editAge.getText().toString().trim().matches("([0-2][0-9]|3[01]).(0[1-9]|1[0-2]).20([01][0-9]|2[01])")) {
                 if (!age.getText().toString().trim().equals(String.valueOf(calculateAge(editAge.getText().toString().trim())))) {
                     birthdate = editAge.getText().toString().trim();
                     age.setText(String.valueOf(calculateAge(birthdate)));
                     reference.child("birthdate").setValue(birthdate);
+                    Toast.makeText(this, "Data updated!", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                birthdate = "-";
+                age.setText(getString(R.string.unknown));
+                reference.child("birthdate").setValue("-");
+                Toast.makeText(this, "Data updated!", Toast.LENGTH_SHORT).show();
             }
 
             updatePic();
