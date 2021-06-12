@@ -160,6 +160,11 @@ public class VetFragment extends Fragment {
             Registration.requestFocus();
             endLoading(Bar2);
             return false;
+        } else if (!Address.getText().toString().trim().matches("[a-zA-Z. ]+ [0-9]+, [a-zA-Z]+, [a-zA-Z]+")) {
+            Address.setError("Invalid address format!");
+            Address.requestFocus();
+            endLoading(Bar2);
+            return false;
         }
         return true;
     }

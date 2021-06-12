@@ -144,17 +144,24 @@ public class AddPet extends AppCompatActivity implements AdapterView.OnItemSelec
         if (s.equals("Cat") || s.equals("Dog") || s.equals("Rabbit") || s.equals("Rodent") || s.equals("Bird") || s.equals("Lizard") || s.equals("Fish") ||
                 s.equals("Hedgehog") || s.equals("Snake") || s.equals("Turtle")) {
             if (name.getText().length() > 0) {
-                if (s.equals("Cat") || s.equals("Dog") || s.equals("Rabbit") || s.equals("Rodent") || s.equals("Bird") || s.equals("Lizard")) {
-                    if (bName.getText().length() == 0) {
-                        Toast.makeText(this, "Breed must be chosen!", Toast.LENGTH_SHORT).show();
-                        bName.requestFocus();
-                        return false;
+                if (birth.getText().toString().trim().length() != 0 &&
+                        birth.getText().toString().trim().matches("([0-2][0-9]|3[01]).(0[1-9]|1[0-2]).20([01][0-9]|2[01])")) {
+                    if (s.equals("Cat") || s.equals("Dog") || s.equals("Rabbit") || s.equals("Rodent") || s.equals("Bird") || s.equals("Lizard")) {
+                        if (bName.getText().length() == 0) {
+                            Toast.makeText(this, "Breed must be chosen!", Toast.LENGTH_SHORT).show();
+                            bName.requestFocus();
+                            return false;
+                        } else {
+                            return true;
+                        }
                     } else {
+                        bName.setText("-");
                         return true;
                     }
                 } else {
-                    bName.setText("-");
-                    return true;
+                    Toast.makeText(this, "Birthdate does not follow the correct format!", Toast.LENGTH_SHORT).show();
+                    birth.requestFocus();
+                    return false;
                 }
             } else {
                 Toast.makeText(this, "Pet must have a name!", Toast.LENGTH_SHORT).show();
