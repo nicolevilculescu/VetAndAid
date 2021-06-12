@@ -117,30 +117,8 @@ public class MessageActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("ChatList").child(firebaseUser.getUid()).child(id);
         databaseReference.child("id").setValue(id);
 
-//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-//                if (!snapshot.exists()) {
-//                    databaseReference.child("id").setValue(id);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull @NotNull DatabaseError error) {}
-//        });
-
         databaseReference = FirebaseDatabase.getInstance().getReference("ChatList").child(id).child(firebaseUser.getUid());
         databaseReference.child("id").setValue(firebaseUser.getUid());
-
-//        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-//                if (!snapshot.exists()) {
-//                    databaseReference.child("id").setValue(firebaseUser.getUid());
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull @NotNull DatabaseError error) {}
-//        });
     }
 
     private void readMessages(String id1, String id2) {
