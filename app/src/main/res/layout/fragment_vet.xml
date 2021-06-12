@@ -9,24 +9,21 @@
     <TextView
         android:id="@+id/info"
         android:layout_width="358dp"
-        android:layout_height="75dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="If you are a veterinarian you can create an account where you can register your clinics and shops, organise future appointments, chat with clients and many other perks."
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="12dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

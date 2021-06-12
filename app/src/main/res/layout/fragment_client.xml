@@ -9,17 +9,15 @@
 
     <TextView
         android:id="@+id/info"
-        android:layout_width="336dp"
-        android:layout_height="71dp"
+        android:layout_width="338dp"
+        android:layout_height="94dp"
         android:gravity="center"
         android:text="If you are a pet owner you can create an account where you can register your pets and all their medical history and also schedule appointments with vets and many other perks."
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/divider2"
@@ -27,12 +25,10 @@
         android:layout_height="1dp"
         android:layout_marginTop="15dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/info" />
 
     <EditText
         android:id="@+id/fname1"

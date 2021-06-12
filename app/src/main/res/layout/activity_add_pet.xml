@@ -118,9 +118,9 @@
     <EditText
         android:id="@+id/name"
         android:layout_width="205dp"
-        android:layout_height="39dp"
+        android:layout_height="41dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="45dp"
         android:autofillHints=".AUTOFILL_HINT_NAME"
         android:backgroundTint="@color/purple_200"
@@ -147,13 +147,14 @@
         android:layout_width="176dp"
         android:layout_height="41dp"
         android:layout_marginStart="39dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="54dp"
         android:autofillHints=".AUTOFILL_TYPE_DATE"
         android:backgroundTint="@color/purple_200"
         android:ems="10"
         android:inputType="date|number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/option4"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
