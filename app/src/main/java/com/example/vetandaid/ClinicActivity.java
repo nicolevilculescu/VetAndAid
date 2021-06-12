@@ -34,8 +34,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallback, DatePickerDialog.OnDateSetListener {
@@ -251,7 +253,7 @@ public class ClinicActivity extends AppCompatActivity implements OnMapReadyCallb
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL, Locale.US).format(c.getTime());
 
         Intent intent = new Intent(ClinicActivity.this, ScheduleRecView.class);
         intent.putExtra(EXTRA_DAY, currentDate);
