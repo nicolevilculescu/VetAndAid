@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.vetandaid.ClientMenuFragments.ClinicsFragment;
+import com.example.vetandaid.Popups.DatePickerFragment;
 import com.example.vetandaid.RecyclerViews.ScheduleRecView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,7 +35,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;

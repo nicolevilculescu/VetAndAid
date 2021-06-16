@@ -1,4 +1,4 @@
-package com.example.vetandaid;
+package com.example.vetandaid.Popups;
 
 import android.app.Activity;
 import android.app.Dialog;

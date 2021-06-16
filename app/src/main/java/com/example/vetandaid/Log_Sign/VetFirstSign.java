@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.vetandaid.R;
 import com.example.vetandaid.RegistrationFragments.VetFragment;
-import com.example.vetandaid.TimePickerFragment;
+import com.example.vetandaid.Popups.TimePickerFragment;
 import com.example.vetandaid.VetProfile;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
